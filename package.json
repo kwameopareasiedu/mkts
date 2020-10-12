@@ -1,0 +1,15 @@
+{
+    "name": "mkts",
+    "version": "0.1.0",
+    "description": "A command line tool for creating different types of typescript applications",
+    "main": "index.js",
+    "author": "Kwame Opare Asiedu",
+    "license": "MIT",
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^4.4.0",
+        "@typescript-eslint/parser": "^4.4.0",
+        "eslint": "^7.11.0",
+        "eslint-config-default": "^0.2.1",
+        "prettier": "^2.1.2"
+    }
+}
