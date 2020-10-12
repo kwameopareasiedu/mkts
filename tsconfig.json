@@ -2,11 +2,15 @@
     "compilerOptions": {
         "module": "es6",
         "target": "es5",
-        "outDir": "./build/",
+        "rootDir": "./src",
+        "outDir": "./dist/",
         "noImplicitAny": true,
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
         "allowJs": true,
         "jsx": "react"
-    }
+    },
+    //    "files": ["references.d.ts"],
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "dist", "bin"]
 }
