@@ -2,15 +2,22 @@
     "name": "mkts",
     "version": "0.1.0",
     "description": "A command line tool for creating different types of typescript applications",
-    "main": "index.js",
     "author": "Kwame Opare Asiedu",
     "license": "MIT",
+    "main": "bin/index.js",
+    "scripts": {
+        "test-run": "node bin/index.js"
+    },
     "devDependencies": {
+        "@types/inquirer": "^7.3.1",
         "@typescript-eslint/eslint-plugin": "^4.4.0",
         "@typescript-eslint/parser": "^4.4.0",
         "eslint": "^7.11.0",
         "eslint-config-default": "^0.2.1",
         "prettier": "^2.1.2",
         "typescript": "^4.0.3"
+    },
+    "dependencies": {
+        "inquirer": "^7.3.3"
     }
 }
