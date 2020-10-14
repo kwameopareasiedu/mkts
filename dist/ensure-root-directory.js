@@ -1,4 +1,4 @@
-/* This module ensures that the project directory is present in the current folder (as indicated by pwd). If the
+/* This module ensures that the project directory is present in the current directory (as indicated by pwd). If the
  * project directory does not exist, it is created. If it exists and is not empty, an overwrite prompt is shown to
  * the user
  */
@@ -11,7 +11,7 @@ module.exports = function (projectName) {
         var contents = readdirSync(projectPath);
         if (contents.length > 0) {
             console.error(red("Cannot create project at " + bold("" + projectPath)));
-            console.error(red("The target folder is not empty"));
+            console.error(red("The target directory is not empty"));
             return false;
         }
         else

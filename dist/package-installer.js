@@ -1,4 +1,4 @@
-/* This module uses the specified package manager to install packages in a project folder */
+/* This module uses the specified package manager to install packages in a project directory */
 module.exports = function (projectPath, packageManager, packages, asDev) {
     var execSync = require("child_process").execSync;
     switch (packageManager.toLowerCase()) {

@@ -1,0 +1,68 @@
+import "./index.scss";
+import axios from "axios";
+import * as Yup from "yup";
+import { Form, Formik } from "formik";
+import React, { useContext, useEffect } from "react";
+import { FieldDecorationType } from "react-simple-widgets/src/form/field-decoration/types";
+import { BusyButton, FlashProviderContext, Link, TextField, ValueStoreProviderContext } from "react-simple-widgets";
+
+export const LoginPage = (): any => {
+    document.title = "Login - <%= projectName %>";
+
+    const { flashError } = useContext(FlashProviderContext);
+    const { get, set, del, clear } = useContext(ValueStoreProviderContext);
+    const initialValues = { email: "", password: "" };
+
+    const validationSchema = Yup.object({
+        email: Yup.string().required("Required"),
+        password: Yup.string().required("Required")
+    });
+
+    useEffect(() => clear(), []);
+
+    const login = (values: any): void => {
+        axios
+            .post("login", values)
+            .then(response => {
+                // Process login response
+            })
+            .catch(err => flashError(err.message))
+            .then(() => del("authenticating"));
+        set("authenticating", true);
+    };
+
+    return (
+        <div id="login-page">
+            <div className="container w-360">
+                <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={login}>
+                    <Form>
+                        <h1 className="text-center"><%= projectName %> Login</h1>
+                        <div className="mb-4" />
+
+                        <TextField
+                            name="email"
+                            type="email"
+                            label="Email"
+                            leading={<i className="fa fa-envelope" />}
+                            decoration={FieldDecorationType.FLOATING_LABEL}
+                        />
+                        <div className="mb-4" />
+
+                        <TextField
+                            name="password"
+                            type="password"
+                            label="Password"
+                            leading={<i className="fa fa-lock" />}
+                            decoration={FieldDecorationType.FLOATING_LABEL}
+                        />
+                        <div className="mb-4" />
+
+                        <BusyButton busy={get("authenticating")} type="submit" className="btn btn-primary btn-block">
+                            Login
+                        </BusyButton>
+                    </Form>
+                </Formik>
+            </div>
+        </div>
+    );
+};

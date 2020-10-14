@@ -1,0 +1,12 @@
+{
+    "name": "<%= projectName %>",
+    "version": "1.0.0",
+    "description": "",
+    "author": "",
+    "license": "MIT",
+    "scripts": {
+        "build": "webpack --mode production --config webpack.lib.js && webpack --mode production --config webpack.common.js",
+        "dev": "concurrently \"nodemon ./server.js\"  \"webpack --mode development --devtool inline-source-map --config webpack.lib.js && webpack --watch --mode development --devtool inline-source-map --config webpack.common.js\"",
+        "start": "node ./server.js"
+    }
+}

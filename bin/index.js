@@ -20,6 +20,7 @@ prompt([
 ]).then(async answers => {
     const ensureRootDir = require("../dist/ensure-root-directory");
     const installStaticFrontend = require("../dist/install-static-frontend");
+    const installFrontendServer = require("../dist/install-frontend-server");
 
     const { projectName, projectType, packageManager } = answers;
 
@@ -29,6 +30,7 @@ prompt([
                 await installStaticFrontend(projectName, packageManager);
                 break;
             case projectTypes[1]:
+                await installFrontendServer(projectName, packageManager);
                 break;
             case projectTypes[2]:
                 break;

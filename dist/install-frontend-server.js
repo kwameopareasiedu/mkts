@@ -35,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var _this = this;
-/* This modules installs a static frontend app basis at the project directory */
+/* This modules installs a frontend server app basis at the project directory */
 module.exports = function (projectName, packageManager) { return __awaiter(_this, void 0, void 0, function () {
     var resolve, renderFile, prompt, _a, writeFileSync, mkdirSync, _b, bold, red, bgRed, green, cyan, packageInstaller, destroyDirectory, projectPath, templateFiles, _i, templateFiles_1, _c, source, target, data, content, err_1, answers;
     return __generator(this, function (_d) {
@@ -50,29 +50,57 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                 destroyDirectory = require("./utils").destroyDirectory;
                 projectPath = resolve(process.cwd(), projectName);
                 templateFiles = [
-                    { source: ".babelrc.js.ejs", target: resolve(projectPath, ".babelrc.j"), data: { projectName: projectName } },
+                    { source: ".babelrc.js.ejs", target: resolve(projectPath, ".babelrc.js"), data: { projectName: projectName } },
                     { source: ".eslintrc.ejs", target: resolve(projectPath, ".eslintrc"), data: { projectName: projectName } },
-                    { source: ".prettierrc.ejs", target: resolve(projectPath, ".prettierrc"), data: { projectName: projectName } },
                     { source: ".gitignore.ejs", target: resolve(projectPath, ".gitignore"), data: { projectName: projectName } },
+                    { source: ".prettierrc.ejs", target: resolve(projectPath, ".prettierrc"), data: { projectName: projectName } },
                     { source: "index.d.ts.ejs", target: resolve(projectPath, "index.d.ts"), data: { projectName: projectName } },
-                    { source: "index.html.ejs", target: resolve(projectPath, "index.html"), data: { projectName: projectName } },
+                    { source: "nodemon.json.ejs", target: resolve(projectPath, "nodemon.json"), data: { projectName: projectName } },
                     { source: "package.json.ejs", target: resolve(projectPath, "package.json"), data: { projectName: projectName } },
                     { source: "postcss.config.js.ejs", target: resolve(projectPath, "postcss.config.js"), data: { projectName: projectName } },
+                    { source: "server.js.ejs", target: resolve(projectPath, "server.js"), data: { projectName: projectName } },
                     { source: "tsconfig.json.ejs", target: resolve(projectPath, "tsconfig.json"), data: { projectName: projectName } },
+                    { source: "types.ts.ejs", target: resolve(projectPath, "types.ts"), data: { projectName: projectName } },
                     { source: "webpack.common.js.ejs", target: resolve(projectPath, "webpack.common.js"), data: { projectName: projectName } },
-                    { source: "src/index.tsx.ejs", target: resolve(projectPath, "src/index.tsx"), data: { projectName: projectName } },
-                    { source: "src/app.tsx.ejs", target: resolve(projectPath, "src/app.tsx"), data: { projectName: projectName } },
-                    { source: "src/app.scss.ejs", target: resolve(projectPath, "src/app.scss"), data: { projectName: projectName } }
+                    { source: "webpack.lib.js.ejs", target: resolve(projectPath, "webpack.lib.js"), data: { projectName: projectName } },
+                    { source: "dist/public/index.ejs", target: resolve(projectPath, "dist/public/index.html"), data: { projectName: projectName } },
+                    {
+                        source: "src/common/stylesheets/config.scss.ejs",
+                        target: resolve(projectPath, "src/common/stylesheets/config.scss"),
+                        data: { projectName: projectName }
+                    },
+                    { source: "src/common/stylesheets/index.scss.ejs", target: resolve(projectPath, "src/common/stylesheets/index.scss"), data: { projectName: projectName } },
+                    {
+                        source: "src/common/stylesheets/status.scss.ejs",
+                        target: resolve(projectPath, "src/common/stylesheets/status.scss"),
+                        data: { projectName: projectName }
+                    },
+                    { source: "src/common/stylesheets/utils.scss.ejs", target: resolve(projectPath, "src/common/stylesheets/utils.scss"), data: { projectName: projectName } },
+                    { source: "src/common/index.ts.ejs", target: resolve(projectPath, "src/common/index.ts"), data: { projectName: projectName } },
+                    { source: "src/common/utils.tsx.ejs", target: resolve(projectPath, "src/common/utils.tsx"), data: { projectName: projectName } },
+                    { source: "src/public/login/index.tsx.ejs", target: resolve(projectPath, "src/public/login/index.tsx"), data: { projectName: projectName } },
+                    { source: "src/public/login/index.scss.ejs", target: resolve(projectPath, "src/public/login/index.scss"), data: { projectName: projectName } },
+                    { source: "src/public/logout/index.tsx.ejs", target: resolve(projectPath, "src/public/logout/index.tsx"), data: { projectName: projectName } },
+                    { source: "src/public/app.tsx.ejs", target: resolve(projectPath, "src/public/app.tsx"), data: { projectName: projectName } },
+                    { source: "src/public/index.tsx.ejs", target: resolve(projectPath, "src/public/index.tsx"), data: { projectName: projectName } }
                 ];
                 console.log(cyan("Copying template files..."));
                 // Create necessary sub directories
+                mkdirSync(resolve(projectPath, "dist"));
+                mkdirSync(resolve(projectPath, "dist/public"));
+                mkdirSync(resolve(projectPath, "dist/lib"));
                 mkdirSync(resolve(projectPath, "src"));
+                mkdirSync(resolve(projectPath, "src/common"));
+                mkdirSync(resolve(projectPath, "src/common/stylesheets"));
+                mkdirSync(resolve(projectPath, "src/public"));
+                mkdirSync(resolve(projectPath, "src/public/login"));
+                mkdirSync(resolve(projectPath, "src/public/logout"));
                 _i = 0, templateFiles_1 = templateFiles;
                 _d.label = 1;
             case 1:
                 if (!(_i < templateFiles_1.length)) return [3 /*break*/, 4];
                 _c = templateFiles_1[_i], source = _c.source, target = _c.target, data = _c.data;
-                return [4 /*yield*/, renderFile(resolve("../", "templates", "static-frontend", source), data || {}, {})];
+                return [4 /*yield*/, renderFile(resolve("../", "templates", "frontend-server", source), data || {}, {})];
             case 2:
                 content = _d.sent();
                 writeFileSync(target, content);
@@ -89,6 +117,9 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                 _d.label = 6;
             case 6:
                 _d.trys.push([6, 7, , 9]);
+                // Install dependencies
+                packageInstaller(projectPath, packageManager, ["cookie-parser", "debug", "express", "express-session", "morgan"]);
+                // Install development dependencies
                 packageInstaller(projectPath, packageManager, [
                     "@babel/core",
                     "@babel/plugin-transform-react-jsx",
@@ -97,29 +128,40 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                     "@babel/preset-react",
                     "@types/react",
                     "@types/react-dom",
+                    "@types/react-router-dom",
+                    "@types/yup",
                     "@typescript-eslint/eslint-plugin",
                     "@typescript-eslint/parser",
+                    "axios",
                     "autoprefixer",
                     "babel-loader",
+                    "concurrently",
                     "css-loader",
                     "eslint",
                     "eslint-config-defaults",
                     "eslint-plugin-react",
                     "faker",
                     "file-loader",
+                    "formik",
+                    "moment",
                     "node-sass",
+                    "nodemon",
+                    "numeral",
                     "postcss",
                     "postcss-loader",
                     "prettier",
                     "react",
                     "react-dom",
+                    "react-router-dom",
+                    "react-simple-widgets",
                     "sass-loader",
                     "style-loader",
                     "ts-loader",
                     "typescript",
                     "url-loader",
-                    "webpack",
-                    "webpack-cli"
+                    "webpack@4.44.2",
+                    "webpack-cli",
+                    "yup"
                 ], true);
                 // TODO: Link to site for next steps and project directory description
                 console.log(green("Installed dependencies. Project setup complete!"));

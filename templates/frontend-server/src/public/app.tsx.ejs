@@ -1,0 +1,48 @@
+import axios from "axios";
+import React from "react";
+import { TransitionView } from "react-simple-widgets";
+import { Redirect, Route, Switch } from "react-router-dom";
+import "../common/stylesheets";
+
+import { LoginPage } from "./login";
+import { LogoutPage } from "./logout";
+
+axios.interceptors.request.use(req => {
+    // Add a request interceptor
+    return req;
+});
+
+axios.interceptors.response.use(
+    res => res,
+    err => {
+        console.error("A request error occurred: ", err);
+        // Add additional response error interceptor logic
+        return Promise.reject({ message: err.response && err.response.data ? err.response.data : err.message });
+    }
+);
+
+export const App = (): any => {
+    return (
+        <div id="app">
+            <div id="app-body">
+                <Switch>
+                    <Route exact path="/">
+                        <Redirect to="/login" />
+                    </Route>
+
+                    <Route exact path="/login">
+                        <TransitionView>
+                            <LoginPage />
+                        </TransitionView>
+                    </Route>
+
+                    <Route exact path="/logout">
+                        <TransitionView>
+                            <LogoutPage />
+                        </TransitionView>
+                    </Route>
+                </Switch>
+            </div>
+        </div>
+    );
+};
