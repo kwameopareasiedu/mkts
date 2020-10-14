@@ -1,4 +1,4 @@
-/* This modules installs a frontend app basis at the project directory */
+/* This modules installs a static-frontend app basis at the project directory */
 module.exports = async (projectName: string, packageManager: string): Promise<void> => {
     const { resolve } = require("path");
     const { renderFile } = require("ejs");
@@ -12,7 +12,7 @@ module.exports = async (projectName: string, packageManager: string): Promise<vo
 
     // Enumerate the template files
     const templateFiles = [
-        { source: ".babelrc.js.ejs", target: resolve(projectPath, ".babelrc.js") },
+        { source: ".babelrc.js.ejs", target: resolve(projectPath, ".babelrc.j") },
         { source: ".eslintrc.ejs", target: resolve(projectPath, ".eslintrc") },
         { source: ".prettierrc.ejs", target: resolve(projectPath, ".prettierrc") },
         { source: ".gitignore.ejs", target: resolve(projectPath, ".gitignore") },
@@ -34,7 +34,7 @@ module.exports = async (projectName: string, packageManager: string): Promise<vo
 
     // Copy the template files
     for (const { source, target, data } of templateFiles) {
-        const content = await renderFile(resolve("../", "templates", "frontend", source), data || {}, {});
+        const content = await renderFile(resolve("../", "templates", "static-frontend", source), data || {}, {});
         writeFileSync(target, content);
     }
 

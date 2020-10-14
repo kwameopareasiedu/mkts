@@ -35,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var _this = this;
-/* This modules installs a frontend app basis at the project directory */
+/* This modules installs a static-frontend app basis at the project directory */
 module.exports = function (projectName, packageManager) { return __awaiter(_this, void 0, void 0, function () {
     var resolve, renderFile, prompt, _a, writeFileSync, mkdirSync, _b, bold, red, bgRed, green, cyan, packageInstaller, destroyDirectory, projectPath, templateFiles, _i, templateFiles_1, _c, source, target, data, content, err_1, answers;
     return __generator(this, function (_d) {
@@ -50,7 +50,7 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                 destroyDirectory = require("./utils").destroyDirectory;
                 projectPath = resolve(process.cwd(), projectName);
                 templateFiles = [
-                    { source: ".babelrc.js.ejs", target: resolve(projectPath, ".babelrc.js") },
+                    { source: ".babelrc.js.ejs", target: resolve(projectPath, ".babelrc.j") },
                     { source: ".eslintrc.ejs", target: resolve(projectPath, ".eslintrc") },
                     { source: ".prettierrc.ejs", target: resolve(projectPath, ".prettierrc") },
                     { source: ".gitignore.ejs", target: resolve(projectPath, ".gitignore") },
@@ -72,7 +72,7 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
             case 1:
                 if (!(_i < templateFiles_1.length)) return [3 /*break*/, 4];
                 _c = templateFiles_1[_i], source = _c.source, target = _c.target, data = _c.data;
-                return [4 /*yield*/, renderFile(resolve("../", "templates", "frontend", source), data || {}, {})];
+                return [4 /*yield*/, renderFile(resolve("../", "templates", "static-frontend", source), data || {}, {})];
             case 2:
                 content = _d.sent();
                 writeFileSync(target, content);
