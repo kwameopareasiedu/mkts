@@ -37,14 +37,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 /* This modules installs a frontend app basis at the project directory */
 module.exports = function (projectName, packageManager) { return __awaiter(_this, void 0, void 0, function () {
-    var resolve, renderFile, _a, writeFileSync, mkdirSync, packageInstaller, projectPath, templateFiles, _i, templateFiles_1, _b, source, target, data, content;
-    return __generator(this, function (_c) {
-        switch (_c.label) {
+    var resolve, renderFile, prompt, _a, writeFileSync, mkdirSync, _b, bold, red, bgRed, green, cyan, packageInstaller, destroyDirectory, projectPath, templateFiles, _i, templateFiles_1, _c, source, target, data, content, err_1, answers;
+    return __generator(this, function (_d) {
+        switch (_d.label) {
             case 0:
                 resolve = require("path").resolve;
                 renderFile = require("ejs").renderFile;
+                prompt = require("inquirer").prompt;
                 _a = require("fs"), writeFileSync = _a.writeFileSync, mkdirSync = _a.mkdirSync;
+                _b = require("chalk"), bold = _b.bold, red = _b.red, bgRed = _b.bgRed, green = _b.green, cyan = _b.cyan;
                 packageInstaller = require("./package-installer");
+                destroyDirectory = require("./utils").destroyDirectory;
                 projectPath = resolve(process.cwd(), projectName);
                 templateFiles = [
                     { source: ".babelrc.js.ejs", target: resolve(projectPath, ".babelrc.js") },
@@ -54,30 +57,38 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                     { source: "index.d.ts.ejs", target: resolve(projectPath, "index.d.ts") },
                     { source: "index.html.ejs", target: resolve(projectPath, "index.html"), data: { projectName: projectName } },
                     { source: "package.json.ejs", target: resolve(projectPath, "package.json"), data: { projectName: projectName } },
+                    { source: "postcss.config.js.ejs", target: resolve(projectPath, "postcss.config.js"), data: { projectName: projectName } },
                     { source: "tsconfig.json.ejs", target: resolve(projectPath, "tsconfig.json") },
                     { source: "webpack.common.js.ejs", target: resolve(projectPath, "webpack.common.js") },
-                    { source: "webpack.lib.js.ejs", target: resolve(projectPath, "webpack.lib.js") },
                     { source: "src/index.tsx.ejs", target: resolve(projectPath, "src/index.tsx") },
                     { source: "src/app.tsx.ejs", target: resolve(projectPath, "src/app.tsx"), data: { projectName: projectName } },
                     { source: "src/app.scss.ejs", target: resolve(projectPath, "src/app.scss") }
                 ];
+                console.log(cyan("Copying template files..."));
                 // Create necessary sub folders
                 mkdirSync(resolve(projectPath, "src"));
                 _i = 0, templateFiles_1 = templateFiles;
-                _c.label = 1;
+                _d.label = 1;
             case 1:
                 if (!(_i < templateFiles_1.length)) return [3 /*break*/, 4];
-                _b = templateFiles_1[_i], source = _b.source, target = _b.target, data = _b.data;
+                _c = templateFiles_1[_i], source = _c.source, target = _c.target, data = _c.data;
                 return [4 /*yield*/, renderFile(resolve("../", "templates", "frontend", source), data || {}, {})];
             case 2:
-                content = _c.sent();
+                content = _d.sent();
                 writeFileSync(target, content);
-                _c.label = 3;
+                _d.label = 3;
             case 3:
                 _i++;
                 return [3 /*break*/, 1];
             case 4:
-                // Install development dependencies
+                console.log(green("Copied template files!\n"));
+                console.log(cyan("Installing dependencies..."));
+                _d.label = 5;
+            case 5:
+                if (!true) return [3 /*break*/, 10];
+                _d.label = 6;
+            case 6:
+                _d.trys.push([6, 7, , 9]);
                 packageInstaller(projectPath, packageManager, [
                     "@babel/core",
                     "@babel/plugin-transform-react-jsx",
@@ -97,6 +108,7 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                     "faker",
                     "file-loader",
                     "node-sass",
+                    "postcss",
                     "postcss-loader",
                     "prettier",
                     "react",
@@ -109,7 +121,25 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                     "webpack",
                     "webpack-cli"
                 ], true);
-                return [2 /*return*/];
+                // TODO: Link to site for next steps and project folder description
+                console.log(green("Installed dependencies. Project setup complete!"));
+                return [3 /*break*/, 10];
+            case 7:
+                err_1 = _d.sent();
+                console.log(err_1.message);
+                return [4 /*yield*/, prompt([
+                        { name: "retry", message: "An error occurred while installing dependencies. Would you like to try again?", type: "confirm" }
+                    ])];
+            case 8:
+                answers = _d.sent();
+                if (!answers.retry) {
+                    console.log(red("Could not install dependencies. Please rerun ") + bgRed(bold("mkts")) + red(" to try again"));
+                    destroyDirectory(projectPath);
+                    return [3 /*break*/, 10];
+                }
+                return [3 /*break*/, 9];
+            case 9: return [3 /*break*/, 5];
+            case 10: return [2 /*return*/];
         }
     });
 }); };

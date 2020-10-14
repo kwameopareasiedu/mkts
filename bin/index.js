@@ -1,5 +1,11 @@
 const { prompt } = require("inquirer");
-const projectTypes = ["React (Frontend only)", "NodeJS (Server only)", "NodeJS + React", "Library"];
+const projectTypes = [
+    "React (Static frontend)",
+    "React (Frontend server)",
+    "NodeJS (Backend server)",
+    "NodeJS + React (Full application)",
+    "Library"
+];
 const packageManagers = ["Yarn", "NPM"];
 
 prompt([
