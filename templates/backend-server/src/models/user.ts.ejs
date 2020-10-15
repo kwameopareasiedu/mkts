@@ -1,0 +1,14 @@
+import RootModel from "./root";
+import { RelationMappings } from "objection";
+
+class User extends RootModel {
+    static get tableName(): string {
+        return "admins";
+    }
+
+    static get relationMappings(): RelationMappings {
+        return {};
+    }
+}
+
+export default User;

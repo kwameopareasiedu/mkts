@@ -110,7 +110,6 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                 return [3 /*break*/, 1];
             case 4:
                 console.log(green("Copied template files!\n"));
-                console.log(cyan("Installing dependencies..."));
                 _d.label = 5;
             case 5:
                 if (!true) return [3 /*break*/, 10];
@@ -118,8 +117,11 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
             case 6:
                 _d.trys.push([6, 7, , 9]);
                 // Install dependencies
+                console.log(cyan("Installing dependencies..."));
                 packageInstaller(projectPath, packageManager, ["cookie-parser", "debug", "express", "express-session", "morgan"]);
+                console.log(green("Installed dependencies!\n"));
                 // Install development dependencies
+                console.log(cyan("Installing development dependencies..."));
                 packageInstaller(projectPath, packageManager, [
                     "@babel/core",
                     "@babel/plugin-transform-react-jsx",
@@ -163,8 +165,9 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                     "webpack-cli",
                     "yup"
                 ], true);
+                console.log(green("Installed development dependencies!\n"));
                 // TODO: Link to site for next steps and project directory description
-                console.log(green("Installed dependencies. Project setup complete!"));
+                console.log(green("Project setup complete!\n"));
                 return [3 /*break*/, 10];
             case 7:
                 err_1 = _d.sent();

@@ -1,0 +1,27 @@
+import { RequestHandler } from "express";
+import { validationResult } from "express-validator";
+
+// Checks the req object for inserted validation errors. If any are found,
+// the request is halted and a 400 is returned with the list of errors found
+export const validateRequest: RequestHandler = (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(400).send(
+            errors
+                .array()
+                .map(err => err.msg)
+                .join(". ")
+        );
+    }
+
+    return next();
+};
+
+// Creates a middleware which extends the request timeout by the specified time
+export const extendTimeout = (seconds: number): RequestHandler => (req, res, next) => {
+    req.setTimeout(seconds * 1000);
+    return next();
+};
+
+// Export additional utility functions

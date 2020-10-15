@@ -25,6 +25,7 @@ module.exports = async (projectName: string, packageManager: string): Promise<vo
         { source: "types.ts.ejs", target: resolve(projectPath, "types.ts"), data: { projectName } },
         { source: "webpack.common.js.ejs", target: resolve(projectPath, "webpack.common.js"), data: { projectName } },
         { source: "webpack.lib.js.ejs", target: resolve(projectPath, "webpack.lib.js"), data: { projectName } },
+
         { source: "dist/public/index.ejs", target: resolve(projectPath, "dist/public/index.html"), data: { projectName } },
         {
             source: "src/common/stylesheets/config.scss.ejs",
@@ -68,14 +69,15 @@ module.exports = async (projectName: string, packageManager: string): Promise<vo
 
     console.log(green("Copied template files!\n"));
 
-    console.log(cyan("Installing dependencies..."));
-
     while (true) {
         try {
             // Install dependencies
+            console.log(cyan("Installing dependencies..."));
             packageInstaller(projectPath, packageManager, ["cookie-parser", "debug", "express", "express-session", "morgan"]);
+            console.log(green("Installed dependencies!\n"));
 
             // Install development dependencies
+            console.log(cyan("Installing development dependencies..."));
             packageInstaller(
                 projectPath,
                 packageManager,
@@ -124,9 +126,10 @@ module.exports = async (projectName: string, packageManager: string): Promise<vo
                 ],
                 true
             );
+            console.log(green("Installed development dependencies!\n"));
 
             // TODO: Link to site for next steps and project directory description
-            console.log(green("Installed dependencies. Project setup complete!"));
+            console.log(green("Project setup complete!\n"));
             break;
         } catch (err) {
             console.log(err.message);

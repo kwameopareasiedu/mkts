@@ -4,7 +4,8 @@ const projectTypes = [
     "React (Frontend server)",
     "NodeJS (Backend server)",
     "NodeJS + React (Full application)",
-    "Library"
+    "Library (NPM)",
+    "Electron (Desktop)",
 ];
 const packageManagers = ["Yarn", "NPM"];
 
@@ -21,6 +22,7 @@ prompt([
     const ensureRootDir = require("../dist/ensure-root-directory");
     const installStaticFrontend = require("../dist/install-static-frontend");
     const installFrontendServer = require("../dist/install-frontend-server");
+    const installBackendServer = require("../dist/install-backend-server");
 
     const { projectName, projectType, packageManager } = answers;
 
@@ -33,10 +35,13 @@ prompt([
                 await installFrontendServer(projectName, packageManager);
                 break;
             case projectTypes[2]:
+                await installBackendServer(projectName, packageManager);
                 break;
             case projectTypes[3]:
                 break;
             case projectTypes[4]:
+                break;
+            case projectTypes[5]:
                 break;
             default:
                 break;

@@ -1,0 +1,19 @@
+{
+    "restartable": "rs",
+    "ignore": ["/.git", "/node_modules/*", "/src/client/*", "/dist/*"],
+    "env": {
+        "NODE_ENV": "development",
+        "PORT": "8000",
+        "CSRF_ENABLED": "true",
+        "BASE_URL": "http://127.0.0.1:8000",
+        "REDIS_URL": "redis://REDIS_USER:REDIS_PASSWORD@127.0.0.1:6379/REDIS_DATABASE_INDEX",
+        "DATABASE_URL": "postgres://PG_USER:PG_PASSWORD@127.0.0.1:5432/PG_DATABASE",
+        "SESSION_SECRET": "",
+        "JWT_SECRET": "",
+        "STORAGE_BUCKET_REGION": "",
+        "STORAGE_BUCKET_ENDPOINT": "",
+        "STORAGE_BUCKET_ACCESS_KEY": "",
+        "STORAGE_BUCKET_SECRET_KEY": "",
+        "STORAGE_BUCKET_NAME": ""
+    }
+}

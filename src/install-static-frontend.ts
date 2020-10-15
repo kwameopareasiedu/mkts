@@ -22,6 +22,7 @@ module.exports = async (projectName: string, packageManager: string): Promise<vo
         { source: "postcss.config.js.ejs", target: resolve(projectPath, "postcss.config.js"), data: { projectName } },
         { source: "tsconfig.json.ejs", target: resolve(projectPath, "tsconfig.json"), data: { projectName } },
         { source: "webpack.common.js.ejs", target: resolve(projectPath, "webpack.common.js"), data: { projectName } },
+
         { source: "src/index.tsx.ejs", target: resolve(projectPath, "src/index.tsx"), data: { projectName } },
         { source: "src/app.tsx.ejs", target: resolve(projectPath, "src/app.tsx"), data: { projectName } },
         { source: "src/app.scss.ejs", target: resolve(projectPath, "src/app.scss"), data: { projectName } }
@@ -40,11 +41,10 @@ module.exports = async (projectName: string, packageManager: string): Promise<vo
 
     console.log(green("Copied template files!\n"));
 
-    console.log(cyan("Installing dependencies..."));
-
     // Install development dependencies
     while (true) {
         try {
+            console.log(cyan("Installing development dependencies..."));
             packageInstaller(
                 projectPath,
                 packageManager,
@@ -82,9 +82,10 @@ module.exports = async (projectName: string, packageManager: string): Promise<vo
                 ],
                 true
             );
+            console.log(green("Installed development dependencies!\n"));
+            console.log(green("Project setup complete!\n"));
 
             // TODO: Link to site for next steps and project directory description
-            console.log(green("Installed dependencies. Project setup complete!"));
             break;
         } catch (err) {
             console.log(err.message);
