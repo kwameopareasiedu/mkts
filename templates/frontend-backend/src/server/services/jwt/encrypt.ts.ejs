@@ -1,0 +1,8 @@
+import { sign } from "jsonwebtoken";
+
+export const encrypt = (payload: any, expiry: string, secret?: string): Promise<string> =>
+    new Promise((resolve, reject) => {
+        if (!payload) return reject(new Error("JWT payload is required"));
+        const token = sign(payload, secret || process.env.JWT_SECRET, { expiresIn: expiry });
+        return resolve(token);
+    });

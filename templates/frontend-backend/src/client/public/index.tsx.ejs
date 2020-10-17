@@ -1,0 +1,20 @@
+import React from "react";
+import { render } from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import { DialogProvider, FlashProvider, TransitionProvider, ValueStoreProvider } from "react-simple-widgets";
+import { App } from "./app";
+
+render(
+    <BrowserRouter basename="/public">
+        <ValueStoreProvider>
+            <DialogProvider>
+                <FlashProvider>
+                    <TransitionProvider>
+                        <App />
+                    </TransitionProvider>
+                </FlashProvider>
+            </DialogProvider>
+        </ValueStoreProvider>
+    </BrowserRouter>,
+    document.querySelector("#root")
+);

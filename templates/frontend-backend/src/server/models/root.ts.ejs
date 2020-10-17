@@ -1,0 +1,88 @@
+import Model from "./config";
+import { JSONSchema, Pojo } from "objection";
+
+class RootModel extends Model {
+    private id: string;
+    private updated_at: Date;
+
+    static decodeHTMLEntities(str: any): any {
+        if (Object.prototype.toString.call(str) !== "[object String]") return str;
+
+        /*
+            A map of symbols to their HTML encoded values. This is useful for
+            encoding and decoding requests having special characters in them
+        */
+        const htmlSpecialCharacterMap: Array<[Array<string>, string]> = [
+            [["&#x21;", "&excl;"], "!"],
+            [["&#x22;", "&quot;"], '"'],
+            [["&#x23;", "&num;"], "#"],
+            [["&#x24;"], "$"],
+            [["&#x25;", "&percnt;"], "%"],
+            [["&#x26;", "&amp;"], "&"],
+            [["&#x27;", "&apos;"], "'"],
+            [["&#x28;", "&lpar;"], "("],
+            [["&#x29;", "&rpar;"], ")"],
+            [["&#x2A;", "&ast;"], "*"],
+            [["&#x2B;", "&plus;"], "+"],
+            [["&#x2C;", "&comma;"], ","],
+            [["&#x2D;", "&minus;"], "-"],
+            [["&#x2E;", "&period;"], "."],
+            [["&#x2F;", "&sol;"], "/"],
+            [["&#x3A;", "&colon;"], ":"],
+            [["&#x3B;", "&semi;"], ";"],
+            [["&#x3C;", "&lt;"], "<"],
+            [["&#x3D;", "&equals;"], "="],
+            [["&#x3E;", "&gt;"], ">"],
+            [["&#x3F;", "&quest;"], "?"],
+            [["&#x40;", "&commat;"], "@"],
+            [["&#x5B;", "&lbrack;"], "["],
+            [["&#x5C;", "&bsol;"], "\\"],
+            [["&#x5D;", "&rbrack;"], "]"]
+        ];
+
+        let strCopy = str || "";
+
+        for (const pair of htmlSpecialCharacterMap) {
+            const characterCodes = pair[0];
+            for (const cc of characterCodes) strCopy = strCopy.replace(new RegExp(cc, "g"), pair[1]);
+        }
+
+        return strCopy;
+    }
+
+    // noinspection JSCheckFunctionSignatures
+    $beforeInsert(): void {
+        // Generate a unique UUID for the object before inserting into the database
+        const { v4: uuidV4 } = require("uuid");
+        this.id = uuidV4();
+    }
+
+    // noinspection JSCheckFunctionSignatures
+    $beforeUpdate(): void {
+        // Update the updated_at timestamp before updating the row in the database
+        this.updated_at = new Date();
+    }
+
+    // noinspection JSCheckFunctionSignatures
+    $beforeValidate(jsonSchema: JSONSchema, json: Pojo): JSONSchema {
+        for (const key in json) {
+            // For numeric keys of the model schema, verify that the values are, well, numeric ;)
+            if (Object.prototype.hasOwnProperty.call(json, key)) {
+                if (Number.isNaN(json[key])) throw new Error("NaN Validation Failed!");
+            }
+        }
+
+        return jsonSchema;
+    }
+
+    // noinspection JSCheckFunctionSignatures
+    $afterGet(): void {
+        for (const key in this) {
+            if (Object.hasOwnProperty.call(this, key)) {
+                this[key] = RootModel.decodeHTMLEntities(this[key]);
+            }
+        }
+    }
+}
+
+export default RootModel;

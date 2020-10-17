@@ -1,0 +1,12 @@
+{
+    "name": "<%= projectName %>",
+    "version": "1.0.0",
+    "description": "",
+    "author": "",
+    "license": "MIT",
+    "scripts": {
+        "dev": "tsc && webpack --mode development --devtool inline-source-map --config webpack.lib.js && concurrently \"tsc --watch --preserveWatchOutput\" \"webpack --watch --mode development --devtool inline-source-map --config webpack.common.js\" \"nodemon dist/server/app.js\"",
+        "build": "tsc && webpack --mode production --devtool inline-source-map --config webpack.lib.js && webpack --mode production --devtool inline-source-map --config webpack.common.js",
+        "start": "node dist/server/app.js"
+    }
+}

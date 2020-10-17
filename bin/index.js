@@ -23,6 +23,7 @@ prompt([
     const installStaticFrontend = require("../dist/install-static-frontend");
     const installFrontendServer = require("../dist/install-frontend-server");
     const installBackendServer = require("../dist/install-backend-server");
+    const installFrontendBackend = require("../dist/install-frontend-backend");
 
     const { projectName, projectType, packageManager } = answers;
 
@@ -38,6 +39,7 @@ prompt([
                 await installBackendServer(projectName, packageManager);
                 break;
             case projectTypes[3]:
+                await installFrontendBackend(projectName, packageManager);
                 break;
             case projectTypes[4]:
                 break;

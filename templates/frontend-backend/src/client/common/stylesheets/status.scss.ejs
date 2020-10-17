@@ -1,0 +1,23 @@
+body {
+    .status-span {
+        display: inline-block;
+        padding: 2px 4px;
+        border-radius: 4px;
+        background-color: #e3e3e3;
+    }
+
+    .status-span.success {
+        background-color: #2d9424;
+        color: white;
+    }
+
+    .status-span.pending {
+        background-color: #e3e300;
+        color: #333;
+    }
+
+    .status-span.failed {
+        background-color: var(--error-color);
+        color: white;
+    }
+}

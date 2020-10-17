@@ -12,7 +12,7 @@ module.exports = async (projectName: string, packageManager: string): Promise<vo
 
     // Enumerate the template files
     const templateFiles = [
-        { source: ".babelrc.js.ejs", target: resolve(projectPath, ".babelrc.j"), data: { projectName } },
+        { source: ".babelrc.js.ejs", target: resolve(projectPath, ".babelrc.js"), data: { projectName } },
         { source: ".eslintrc.ejs", target: resolve(projectPath, ".eslintrc"), data: { projectName } },
         { source: ".prettierrc.ejs", target: resolve(projectPath, ".prettierrc"), data: { projectName } },
         { source: ".gitignore.ejs", target: resolve(projectPath, ".gitignore"), data: { projectName } },

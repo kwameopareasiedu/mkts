@@ -50,7 +50,7 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                 destroyDirectory = require("./utils").destroyDirectory;
                 projectPath = resolve(process.cwd(), projectName);
                 templateFiles = [
-                    { source: ".babelrc.js.ejs", target: resolve(projectPath, ".babelrc.j"), data: { projectName: projectName } },
+                    { source: ".babelrc.js.ejs", target: resolve(projectPath, ".babelrc.js"), data: { projectName: projectName } },
                     { source: ".eslintrc.ejs", target: resolve(projectPath, ".eslintrc"), data: { projectName: projectName } },
                     { source: ".prettierrc.ejs", target: resolve(projectPath, ".prettierrc"), data: { projectName: projectName } },
                     { source: ".gitignore.ejs", target: resolve(projectPath, ".gitignore"), data: { projectName: projectName } },
