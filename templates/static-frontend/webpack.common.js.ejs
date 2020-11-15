@@ -3,7 +3,7 @@ const path = require("path");
 module.exports = {
     entry: "./src/index.tsx",
     output: {
-        path: path.resolve(__dirname),
+        path: path.resolve(__dirname, "dist"),
         filename: "bundle.js"
     },
     module: {
@@ -27,7 +27,7 @@ module.exports = {
                 use: [
                     {
                         loader: "url-loader",
-                        options: { name: "/assets/[hash].[ext]", limit: 4096 }
+                        options: { name: "/dist/assets/[hash].[ext]", limit: 4096 }
                     }
                 ]
             },
@@ -36,7 +36,7 @@ module.exports = {
                 use: [
                     {
                         loader: "file-loader",
-                        options: { publicPath: "/assets", outputPath: "./assets" }
+                        options: { publicPath: "/dist/assets", outputPath: "./dist/assets" }
                     }
                 ]
             },

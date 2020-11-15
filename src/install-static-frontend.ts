@@ -17,7 +17,6 @@ module.exports = async (projectName: string, packageManager: string): Promise<vo
         { source: ".prettierrc.ejs", target: resolve(projectPath, ".prettierrc"), data: { projectName } },
         { source: ".gitignore.ejs", target: resolve(projectPath, ".gitignore"), data: { projectName } },
         { source: "index.d.ts.ejs", target: resolve(projectPath, "index.d.ts"), data: { projectName } },
-        { source: "index.html.ejs", target: resolve(projectPath, "index.html"), data: { projectName } },
         { source: "package.json.ejs", target: resolve(projectPath, "package.json"), data: { projectName } },
         { source: "postcss.config.js.ejs", target: resolve(projectPath, "postcss.config.js"), data: { projectName } },
         { source: "tsconfig.json.ejs", target: resolve(projectPath, "tsconfig.json"), data: { projectName } },
@@ -25,13 +24,16 @@ module.exports = async (projectName: string, packageManager: string): Promise<vo
 
         { source: "src/index.tsx.ejs", target: resolve(projectPath, "src/index.tsx"), data: { projectName } },
         { source: "src/app.tsx.ejs", target: resolve(projectPath, "src/app.tsx"), data: { projectName } },
-        { source: "src/app.scss.ejs", target: resolve(projectPath, "src/app.scss"), data: { projectName } }
+        { source: "src/app.scss.ejs", target: resolve(projectPath, "src/app.scss"), data: { projectName } },
+
+        { source: "dist/index.html.ejs", target: resolve(projectPath, "dist/index.html"), data: { projectName } }
     ];
 
     console.log(cyan("Copying template files..."));
 
     // Create necessary sub directories
     mkdirSync(resolve(projectPath, "src"));
+    mkdirSync(resolve(projectPath, "dist"));
 
     // Copy the template files
     for (const { source, target, data } of templateFiles) {
@@ -49,36 +51,36 @@ module.exports = async (projectName: string, packageManager: string): Promise<vo
                 projectPath,
                 packageManager,
                 [
-                    "@babel/core",
-                    "@babel/plugin-transform-react-jsx",
-                    "@babel/plugin-transform-spread",
-                    "@babel/preset-env",
-                    "@babel/preset-react",
-                    "@types/react",
-                    "@types/react-dom",
-                    "@typescript-eslint/eslint-plugin",
-                    "@typescript-eslint/parser",
-                    "autoprefixer",
-                    "babel-loader",
-                    "css-loader",
-                    "eslint",
-                    "eslint-config-defaults",
-                    "eslint-plugin-react",
-                    "faker",
-                    "file-loader",
-                    "node-sass",
-                    "postcss",
-                    "postcss-loader",
-                    "prettier",
-                    "react",
-                    "react-dom",
-                    "sass-loader",
-                    "style-loader",
-                    "ts-loader",
-                    "typescript",
-                    "url-loader",
-                    "webpack",
-                    "webpack-cli"
+                    "@babel/core@7.x.x",
+                    "@babel/plugin-transform-react-jsx@7.x.x",
+                    "@babel/plugin-transform-spread@7.x.x",
+                    "@babel/preset-env@7.x.x",
+                    "@babel/preset-react@7.x.x",
+                    "@types/react@16.x.x",
+                    "@types/react-dom@16.x.x",
+                    "@typescript-eslint/eslint-plugin@4.x.x",
+                    "@typescript-eslint/parser@4.x.x",
+                    "autoprefixer@10.x.x",
+                    "babel-loader@8.x.x",
+                    "css-loader@5.x.x",
+                    "eslint@7.x.x",
+                    "eslint-config-defaults@9.x.x",
+                    "eslint-plugin-react@7.x.x",
+                    "faker@5.x.x",
+                    "file-loader@6.x.x",
+                    "node-sass@5.x.x",
+                    "postcss@8.x.x",
+                    "postcss-loader@4.x.x",
+                    "prettier@2.x.x",
+                    "react@17.x.x",
+                    "react-dom@17.x.x",
+                    "sass-loader@10.x.x",
+                    "style-loader@2.x.x",
+                    "ts-loader@8.x.x",
+                    "typescript@4.x.x",
+                    "url-loader@4.x.x",
+                    "webpack@5.x.x",
+                    "webpack-cli@4.x.x"
                 ],
                 true
             );

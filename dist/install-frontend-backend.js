@@ -63,7 +63,7 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                     { source: "postcss.config.js.ejs", target: resolve(projectPath, "postcss.config.js"), data: data },
                     { source: "tsconfig.json.ejs", target: resolve(projectPath, "tsconfig.json"), data: data },
                     { source: "webpack.common.js.ejs", target: resolve(projectPath, "webpack.common.js"), data: data },
-                    { source: "webpack.lib.js.ejs", target: resolve(projectPath, "webpack.lib.js"), data: data },
+                    { source: "webpack.lb.js.ejs", target: resolve(projectPath, "webpack.lib.js"), data: data },
                     { source: "dist/client/public/index.ejs", target: resolve(projectPath, "dist/client/public/index.ejs"), data: data },
                     { source: "src/client/common/stylesheets/config.scss.ejs", target: resolve(projectPath, "src/client/common/stylesheets/config.scss"), data: data },
                     { source: "src/client/common/stylesheets/index.scss.ejs", target: resolve(projectPath, "src/client/common/stylesheets/index.scss"), data: data },
@@ -102,7 +102,6 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                 mkdirSync(resolve(projectPath, "src/client/common/stylesheets"));
                 mkdirSync(resolve(projectPath, "src/client/public"));
                 mkdirSync(resolve(projectPath, "src/client/public/home"));
-                mkdirSync(resolve(projectPath, "src/server"));
                 mkdirSync(resolve(projectPath, "src/server/models"));
                 mkdirSync(resolve(projectPath, "src/server/routes"));
                 mkdirSync(resolve(projectPath, "src/server/services"));
