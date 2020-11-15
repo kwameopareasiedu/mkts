@@ -85,6 +85,8 @@ Contains configuration for the [Webpack](https://webpack.js.org/) module bundler
 the tools mentioned before, (Babel, PostCSS, ESlint, Typescript, etc) to bundle your source code into one or more JS
 file(s) that you can include in your HTML (`dist/index.html`).
 
+---
+
 ## Moving forward...
 
 This section contains actions you can perform in your newly created project

@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 /* This modules installs a static frontend app basis at the project directory */
 module.exports = function (projectName, packageManager) { return __awaiter(_this, void 0, void 0, function () {
-    var resolve, renderFile, prompt, _a, writeFileSync, mkdirSync, _b, bold, red, bgRed, green, cyan, packageInstaller, destroyDirectory, projectPath, templateFiles, _i, templateFiles_1, _c, source, target, data, content, err_1, answers;
+    var resolve, renderFile, prompt, _a, writeFileSync, mkdirSync, _b, bold, red, bgRed, green, cyan, packageInstaller, destroyDirectory, projectPath, templateFiles, _i, templateFiles_1, _c, source, target, data, content, open_1, err_1, answers;
     return __generator(this, function (_d) {
         switch (_d.label) {
             case 0:
@@ -124,7 +124,8 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                 ], true);
                 console.log(green("Installed development dependencies!\n"));
                 console.log(green("Project setup complete!\n"));
-                // TODO: Link to site for next steps and project directory description
+                open_1 = require("open");
+                open_1("https://github.com/kwameopareasiedu/mkts/blob/master/docs/static-frontend.md#mkts--static-frontend-react");
                 return [3 /*break*/, 10];
             case 7:
                 err_1 = _d.sent();

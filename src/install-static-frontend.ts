@@ -87,7 +87,8 @@ module.exports = async (projectName: string, packageManager: string): Promise<vo
             console.log(green("Installed development dependencies!\n"));
             console.log(green("Project setup complete!\n"));
 
-            // TODO: Link to site for next steps and project directory description
+            const open = require("open");
+            open("https://github.com/kwameopareasiedu/mkts/blob/master/docs/static-frontend.md#mkts--static-frontend-react");
             break;
         } catch (err) {
             console.log(err.message);
