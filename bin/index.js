@@ -4,8 +4,8 @@ const projectTypes = [
     "React (Frontend server)",
     "NodeJS (Backend server)",
     "NodeJS + React (Full application)",
-    "Library (NPM)",
-    "Electron (Desktop)",
+    // "Library (NPM)",
+    // "Electron (Desktop)",
 ];
 const packageManagers = ["Yarn", "NPM"];
 
@@ -40,10 +40,6 @@ prompt([
                 break;
             case projectTypes[3]:
                 await installFrontendBackend(projectName, packageManager);
-                break;
-            case projectTypes[4]:
-                break;
-            case projectTypes[5]:
                 break;
             default:
                 break;

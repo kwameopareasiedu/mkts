@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 /* This modules installs a frontend server app basis at the project directory */
 module.exports = function (projectName, packageManager) { return __awaiter(_this, void 0, void 0, function () {
-    var resolve, renderFile, prompt, _a, writeFileSync, mkdirSync, _b, bold, red, bgRed, green, cyan, packageInstaller, destroyDirectory, projectPath, templateFiles, _i, templateFiles_1, _c, source, target, data, content, err_1, answers;
+    var resolve, renderFile, prompt, _a, writeFileSync, mkdirSync, _b, bold, red, bgRed, green, cyan, packageInstaller, destroyDirectory, data, projectPath, templateFiles, _i, templateFiles_1, _c, source, target, data_1, content, err_1, answers;
     return __generator(this, function (_d) {
         switch (_d.label) {
             case 0:
@@ -48,28 +48,29 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                 _b = require("chalk"), bold = _b.bold, red = _b.red, bgRed = _b.bgRed, green = _b.green, cyan = _b.cyan;
                 packageInstaller = require("./package-installer");
                 destroyDirectory = require("./utils").destroyDirectory;
+                data = { projectName: projectName };
                 projectPath = resolve(process.cwd(), projectName);
                 templateFiles = [
-                    { source: ".babelrc.js.ejs", target: resolve(projectPath, ".babelrc.js"), data: { projectName: projectName } },
-                    { source: ".eslintrc.ejs", target: resolve(projectPath, ".eslintrc"), data: { projectName: projectName } },
-                    { source: ".gitignore.ejs", target: resolve(projectPath, ".gitignore"), data: { projectName: projectName } },
-                    { source: ".prettierrc.ejs", target: resolve(projectPath, ".prettierrc"), data: { projectName: projectName } },
-                    { source: "index.d.ts.ejs", target: resolve(projectPath, "index.d.ts"), data: { projectName: projectName } },
-                    { source: "knexfile.js.ejs", target: resolve(projectPath, "knexfile.js"), data: { projectName: projectName } },
-                    { source: "nodemon.json.ejs", target: resolve(projectPath, "nodemon.json"), data: { projectName: projectName } },
-                    { source: "nodemon-template.json.ejs", target: resolve(projectPath, "nodemon-template.json"), data: { projectName: projectName } },
-                    { source: "package.json.ejs", target: resolve(projectPath, "package.json"), data: { projectName: projectName } },
-                    { source: "tsconfig.json.ejs", target: resolve(projectPath, "tsconfig.json"), data: { projectName: projectName } },
-                    { source: "src/models/config.ts.ejs", target: resolve(projectPath, "src/models/config.ts"), data: { projectName: projectName } },
-                    { source: "src/models/root.ts.ejs", target: resolve(projectPath, "src/models/root.ts"), data: { projectName: projectName } },
-                    { source: "src/models/user.ts.ejs", target: resolve(projectPath, "src/models/user.ts"), data: { projectName: projectName } },
-                    { source: "src/routes/index.ts.ejs", target: resolve(projectPath, "src/routes/index.ts"), data: { projectName: projectName } },
-                    { source: "src/services/storage/config.ts.ejs", target: resolve(projectPath, "src/services/storage/config.ts"), data: { projectName: projectName } },
-                    { source: "src/services/storage/basic.ts.ejs", target: resolve(projectPath, "src/services/storage/basic.ts"), data: { projectName: projectName } },
-                    { source: "src/services/storage/index.ts.ejs", target: resolve(projectPath, "src/services/storage/index.ts"), data: { projectName: projectName } },
-                    { source: "src/app.ts.ejs", target: resolve(projectPath, "src/app.ts"), data: { projectName: projectName } },
-                    { source: "src/knexfile.js.ejs", target: resolve(projectPath, "src/knexfile.js"), data: { projectName: projectName } },
-                    { source: "src/utils.ts.ejs", target: resolve(projectPath, "src/utils.ts"), data: { projectName: projectName } }
+                    { source: ".babelrc.js.ejs", target: resolve(projectPath, ".babelrc.js"), data: data },
+                    { source: ".eslintrc.ejs", target: resolve(projectPath, ".eslintrc"), data: data },
+                    { source: ".gitignore.ejs", target: resolve(projectPath, ".gitignore"), data: data },
+                    { source: ".prettierrc.ejs", target: resolve(projectPath, ".prettierrc"), data: data },
+                    { source: "index.d.ts.ejs", target: resolve(projectPath, "index.d.ts"), data: data },
+                    { source: "knexfile.js.ejs", target: resolve(projectPath, "knexfile.js"), data: data },
+                    { source: "nodemon.json.ejs", target: resolve(projectPath, "nodemon.json"), data: data },
+                    { source: "nodemon-template.json.ejs", target: resolve(projectPath, "nodemon-template.json"), data: data },
+                    { source: "package.json.ejs", target: resolve(projectPath, "package.json"), data: data },
+                    { source: "tsconfig.json.ejs", target: resolve(projectPath, "tsconfig.json"), data: data },
+                    { source: "src/models/config.ts.ejs", target: resolve(projectPath, "src/models/config.ts"), data: data },
+                    { source: "src/models/root.ts.ejs", target: resolve(projectPath, "src/models/root.ts"), data: data },
+                    { source: "src/models/user.ts.ejs", target: resolve(projectPath, "src/models/user.ts"), data: data },
+                    { source: "src/routes/index.ts.ejs", target: resolve(projectPath, "src/routes/index.ts"), data: data },
+                    { source: "src/services/storage/config.ts.ejs", target: resolve(projectPath, "src/services/storage/config.ts"), data: data },
+                    { source: "src/services/storage/basic.ts.ejs", target: resolve(projectPath, "src/services/storage/basic.ts"), data: data },
+                    { source: "src/services/storage/index.ts.ejs", target: resolve(projectPath, "src/services/storage/index.ts"), data: data },
+                    { source: "src/app.ts.ejs", target: resolve(projectPath, "src/app.ts"), data: data },
+                    { source: "src/knexfile.js.ejs", target: resolve(projectPath, "src/knexfile.js"), data: data },
+                    { source: "src/utils.ts.ejs", target: resolve(projectPath, "src/utils.ts"), data: data }
                 ];
                 console.log(cyan("Copying template files..."));
                 // Create necessary sub directories
@@ -83,8 +84,8 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                 _d.label = 1;
             case 1:
                 if (!(_i < templateFiles_1.length)) return [3 /*break*/, 4];
-                _c = templateFiles_1[_i], source = _c.source, target = _c.target, data = _c.data;
-                return [4 /*yield*/, renderFile(resolve("../", "templates", "backend-server", source), data || {}, {})];
+                _c = templateFiles_1[_i], source = _c.source, target = _c.target, data_1 = _c.data;
+                return [4 /*yield*/, renderFile(resolve("../", "templates", "backend-server", source), data_1 || {}, {})];
             case 2:
                 content = _d.sent();
                 writeFileSync(target, content);

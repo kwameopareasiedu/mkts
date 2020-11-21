@@ -8,25 +8,26 @@ module.exports = async (projectName: string, packageManager: string): Promise<vo
     const packageInstaller = require("./package-installer");
     const { destroyDirectory } = require("./utils");
 
+    const data = { projectName };
     const projectPath = resolve(process.cwd(), projectName);
 
     // Enumerate the template files
     const templateFiles = [
-        { source: ".babelrc.js.ejs", target: resolve(projectPath, ".babelrc.js"), data: { projectName } },
-        { source: ".eslintrc.ejs", target: resolve(projectPath, ".eslintrc"), data: { projectName } },
-        { source: ".prettierrc.ejs", target: resolve(projectPath, ".prettierrc"), data: { projectName } },
-        { source: ".gitignore.ejs", target: resolve(projectPath, ".gitignore"), data: { projectName } },
-        { source: "index.d.ts.ejs", target: resolve(projectPath, "index.d.ts"), data: { projectName } },
-        { source: "package.json.ejs", target: resolve(projectPath, "package.json"), data: { projectName } },
-        { source: "postcss.config.js.ejs", target: resolve(projectPath, "postcss.config.js"), data: { projectName } },
-        { source: "tsconfig.json.ejs", target: resolve(projectPath, "tsconfig.json"), data: { projectName } },
-        { source: "webpack.common.js.ejs", target: resolve(projectPath, "webpack.common.js"), data: { projectName } },
+        { source: ".babelrc.js.ejs", target: resolve(projectPath, ".babelrc.js"), data },
+        { source: ".eslintrc.ejs", target: resolve(projectPath, ".eslintrc"), data },
+        { source: ".prettierrc.ejs", target: resolve(projectPath, ".prettierrc"), data },
+        { source: ".gitignore.ejs", target: resolve(projectPath, ".gitignore"), data },
+        { source: "index.d.ts.ejs", target: resolve(projectPath, "index.d.ts"), data },
+        { source: "package.json.ejs", target: resolve(projectPath, "package.json"), data },
+        { source: "postcss.config.js.ejs", target: resolve(projectPath, "postcss.config.js"), data },
+        { source: "tsconfig.json.ejs", target: resolve(projectPath, "tsconfig.json"), data },
+        { source: "webpack.common.js.ejs", target: resolve(projectPath, "webpack.common.js"), data },
 
-        { source: "src/index.tsx.ejs", target: resolve(projectPath, "src/index.tsx"), data: { projectName } },
-        { source: "src/app.tsx.ejs", target: resolve(projectPath, "src/app.tsx"), data: { projectName } },
-        { source: "src/app.scss.ejs", target: resolve(projectPath, "src/app.scss"), data: { projectName } },
+        { source: "src/index.tsx.ejs", target: resolve(projectPath, "src/index.tsx"), data },
+        { source: "src/app.tsx.ejs", target: resolve(projectPath, "src/app.tsx"), data },
+        { source: "src/app.scss.ejs", target: resolve(projectPath, "src/app.scss"), data },
 
-        { source: "dist/index.html.ejs", target: resolve(projectPath, "dist/index.html"), data: { projectName } }
+        { source: "dist/index.html.ejs", target: resolve(projectPath, "dist/index.html"), data }
     ];
 
     console.log(cyan("Copying template files..."));
@@ -72,8 +73,8 @@ module.exports = async (projectName: string, packageManager: string): Promise<vo
                     "postcss@8.x.x",
                     "postcss-loader@4.x.x",
                     "prettier@2.x.x",
-                    "react@17.x.x",
-                    "react-dom@17.x.x",
+                    "react@16.x.x",
+                    "react-dom@16.x.x",
                     "sass-loader@10.x.x",
                     "style-loader@2.x.x",
                     "ts-loader@8.x.x",

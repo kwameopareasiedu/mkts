@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 /* This modules installs a static frontend app basis at the project directory */
 module.exports = function (projectName, packageManager) { return __awaiter(_this, void 0, void 0, function () {
-    var resolve, renderFile, prompt, _a, writeFileSync, mkdirSync, _b, bold, red, bgRed, green, cyan, packageInstaller, destroyDirectory, projectPath, templateFiles, _i, templateFiles_1, _c, source, target, data, content, open_1, err_1, answers;
+    var resolve, renderFile, prompt, _a, writeFileSync, mkdirSync, _b, bold, red, bgRed, green, cyan, packageInstaller, destroyDirectory, data, projectPath, templateFiles, _i, templateFiles_1, _c, source, target, data_1, content, open_1, err_1, answers;
     return __generator(this, function (_d) {
         switch (_d.label) {
             case 0:
@@ -48,21 +48,22 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                 _b = require("chalk"), bold = _b.bold, red = _b.red, bgRed = _b.bgRed, green = _b.green, cyan = _b.cyan;
                 packageInstaller = require("./package-installer");
                 destroyDirectory = require("./utils").destroyDirectory;
+                data = { projectName: projectName };
                 projectPath = resolve(process.cwd(), projectName);
                 templateFiles = [
-                    { source: ".babelrc.js.ejs", target: resolve(projectPath, ".babelrc.js"), data: { projectName: projectName } },
-                    { source: ".eslintrc.ejs", target: resolve(projectPath, ".eslintrc"), data: { projectName: projectName } },
-                    { source: ".prettierrc.ejs", target: resolve(projectPath, ".prettierrc"), data: { projectName: projectName } },
-                    { source: ".gitignore.ejs", target: resolve(projectPath, ".gitignore"), data: { projectName: projectName } },
-                    { source: "index.d.ts.ejs", target: resolve(projectPath, "index.d.ts"), data: { projectName: projectName } },
-                    { source: "package.json.ejs", target: resolve(projectPath, "package.json"), data: { projectName: projectName } },
-                    { source: "postcss.config.js.ejs", target: resolve(projectPath, "postcss.config.js"), data: { projectName: projectName } },
-                    { source: "tsconfig.json.ejs", target: resolve(projectPath, "tsconfig.json"), data: { projectName: projectName } },
-                    { source: "webpack.common.js.ejs", target: resolve(projectPath, "webpack.common.js"), data: { projectName: projectName } },
-                    { source: "src/index.tsx.ejs", target: resolve(projectPath, "src/index.tsx"), data: { projectName: projectName } },
-                    { source: "src/app.tsx.ejs", target: resolve(projectPath, "src/app.tsx"), data: { projectName: projectName } },
-                    { source: "src/app.scss.ejs", target: resolve(projectPath, "src/app.scss"), data: { projectName: projectName } },
-                    { source: "dist/index.html.ejs", target: resolve(projectPath, "dist/index.html"), data: { projectName: projectName } }
+                    { source: ".babelrc.js.ejs", target: resolve(projectPath, ".babelrc.js"), data: data },
+                    { source: ".eslintrc.ejs", target: resolve(projectPath, ".eslintrc"), data: data },
+                    { source: ".prettierrc.ejs", target: resolve(projectPath, ".prettierrc"), data: data },
+                    { source: ".gitignore.ejs", target: resolve(projectPath, ".gitignore"), data: data },
+                    { source: "index.d.ts.ejs", target: resolve(projectPath, "index.d.ts"), data: data },
+                    { source: "package.json.ejs", target: resolve(projectPath, "package.json"), data: data },
+                    { source: "postcss.config.js.ejs", target: resolve(projectPath, "postcss.config.js"), data: data },
+                    { source: "tsconfig.json.ejs", target: resolve(projectPath, "tsconfig.json"), data: data },
+                    { source: "webpack.common.js.ejs", target: resolve(projectPath, "webpack.common.js"), data: data },
+                    { source: "src/index.tsx.ejs", target: resolve(projectPath, "src/index.tsx"), data: data },
+                    { source: "src/app.tsx.ejs", target: resolve(projectPath, "src/app.tsx"), data: data },
+                    { source: "src/app.scss.ejs", target: resolve(projectPath, "src/app.scss"), data: data },
+                    { source: "dist/index.html.ejs", target: resolve(projectPath, "dist/index.html"), data: data }
                 ];
                 console.log(cyan("Copying template files..."));
                 // Create necessary sub directories
@@ -72,8 +73,8 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                 _d.label = 1;
             case 1:
                 if (!(_i < templateFiles_1.length)) return [3 /*break*/, 4];
-                _c = templateFiles_1[_i], source = _c.source, target = _c.target, data = _c.data;
-                return [4 /*yield*/, renderFile(resolve("../", "templates", "static-frontend", source), data || {}, {})];
+                _c = templateFiles_1[_i], source = _c.source, target = _c.target, data_1 = _c.data;
+                return [4 /*yield*/, renderFile(resolve("../", "templates", "static-frontend", source), data_1 || {}, {})];
             case 2:
                 content = _d.sent();
                 writeFileSync(target, content);
@@ -112,8 +113,8 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                     "postcss@8.x.x",
                     "postcss-loader@4.x.x",
                     "prettier@2.x.x",
-                    "react@17.x.x",
-                    "react-dom@17.x.x",
+                    "react@16.x.x",
+                    "react-dom@16.x.x",
                     "sass-loader@10.x.x",
                     "style-loader@2.x.x",
                     "ts-loader@8.x.x",

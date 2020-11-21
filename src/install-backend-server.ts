@@ -8,31 +8,32 @@ module.exports = async (projectName: string, packageManager: string): Promise<vo
     const packageInstaller = require("./package-installer");
     const { destroyDirectory } = require("./utils");
 
+    const data = { projectName };
     const projectPath = resolve(process.cwd(), projectName);
 
     // Enumerate the template files
     const templateFiles = [
-        { source: ".babelrc.js.ejs", target: resolve(projectPath, ".babelrc.js"), data: { projectName } },
-        { source: ".eslintrc.ejs", target: resolve(projectPath, ".eslintrc"), data: { projectName } },
-        { source: ".gitignore.ejs", target: resolve(projectPath, ".gitignore"), data: { projectName } },
-        { source: ".prettierrc.ejs", target: resolve(projectPath, ".prettierrc"), data: { projectName } },
-        { source: "index.d.ts.ejs", target: resolve(projectPath, "index.d.ts"), data: { projectName } },
-        { source: "knexfile.js.ejs", target: resolve(projectPath, "knexfile.js"), data: { projectName } },
-        { source: "nodemon.json.ejs", target: resolve(projectPath, "nodemon.json"), data: { projectName } },
-        { source: "nodemon-template.json.ejs", target: resolve(projectPath, "nodemon-template.json"), data: { projectName } },
-        { source: "package.json.ejs", target: resolve(projectPath, "package.json"), data: { projectName } },
-        { source: "tsconfig.json.ejs", target: resolve(projectPath, "tsconfig.json"), data: { projectName } },
+        { source: ".babelrc.js.ejs", target: resolve(projectPath, ".babelrc.js"), data },
+        { source: ".eslintrc.ejs", target: resolve(projectPath, ".eslintrc"), data },
+        { source: ".gitignore.ejs", target: resolve(projectPath, ".gitignore"), data },
+        { source: ".prettierrc.ejs", target: resolve(projectPath, ".prettierrc"), data },
+        { source: "index.d.ts.ejs", target: resolve(projectPath, "index.d.ts"), data },
+        { source: "knexfile.js.ejs", target: resolve(projectPath, "knexfile.js"), data },
+        { source: "nodemon.json.ejs", target: resolve(projectPath, "nodemon.json"), data },
+        { source: "nodemon-template.json.ejs", target: resolve(projectPath, "nodemon-template.json"), data },
+        { source: "package.json.ejs", target: resolve(projectPath, "package.json"), data },
+        { source: "tsconfig.json.ejs", target: resolve(projectPath, "tsconfig.json"), data },
 
-        { source: "src/models/config.ts.ejs", target: resolve(projectPath, "src/models/config.ts"), data: { projectName } },
-        { source: "src/models/root.ts.ejs", target: resolve(projectPath, "src/models/root.ts"), data: { projectName } },
-        { source: "src/models/user.ts.ejs", target: resolve(projectPath, "src/models/user.ts"), data: { projectName } },
-        { source: "src/routes/index.ts.ejs", target: resolve(projectPath, "src/routes/index.ts"), data: { projectName } },
-        { source: "src/services/storage/config.ts.ejs", target: resolve(projectPath, "src/services/storage/config.ts"), data: { projectName } },
-        { source: "src/services/storage/basic.ts.ejs", target: resolve(projectPath, "src/services/storage/basic.ts"), data: { projectName } },
-        { source: "src/services/storage/index.ts.ejs", target: resolve(projectPath, "src/services/storage/index.ts"), data: { projectName } },
-        { source: "src/app.ts.ejs", target: resolve(projectPath, "src/app.ts"), data: { projectName } },
-        { source: "src/knexfile.js.ejs", target: resolve(projectPath, "src/knexfile.js"), data: { projectName } },
-        { source: "src/utils.ts.ejs", target: resolve(projectPath, "src/utils.ts"), data: { projectName } }
+        { source: "src/models/config.ts.ejs", target: resolve(projectPath, "src/models/config.ts"), data },
+        { source: "src/models/root.ts.ejs", target: resolve(projectPath, "src/models/root.ts"), data },
+        { source: "src/models/user.ts.ejs", target: resolve(projectPath, "src/models/user.ts"), data },
+        { source: "src/routes/index.ts.ejs", target: resolve(projectPath, "src/routes/index.ts"), data },
+        { source: "src/services/storage/config.ts.ejs", target: resolve(projectPath, "src/services/storage/config.ts"), data },
+        { source: "src/services/storage/basic.ts.ejs", target: resolve(projectPath, "src/services/storage/basic.ts"), data },
+        { source: "src/services/storage/index.ts.ejs", target: resolve(projectPath, "src/services/storage/index.ts"), data },
+        { source: "src/app.ts.ejs", target: resolve(projectPath, "src/app.ts"), data },
+        { source: "src/knexfile.js.ejs", target: resolve(projectPath, "src/knexfile.js"), data },
+        { source: "src/utils.ts.ejs", target: resolve(projectPath, "src/utils.ts"), data }
     ];
 
     console.log(cyan("Copying template files..."));
