@@ -48,7 +48,7 @@ module.exports = async (projectName: string, packageManager: string): Promise<vo
 
     // Copy the template files
     for (const { source, target, data } of templateFiles) {
-        const content = await renderFile(resolve("../", "templates", "backend-server", source), data || {}, {});
+        const content = await renderFile(resolve(__dirname, "../", "templates", "backend-server", source), data || {}, {});
         writeFileSync(target, content);
     }
 

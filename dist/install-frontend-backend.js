@@ -112,7 +112,7 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
             case 1:
                 if (!(_i < templateFiles_1.length)) return [3 /*break*/, 4];
                 _c = templateFiles_1[_i], source = _c.source, target = _c.target, data_1 = _c.data;
-                return [4 /*yield*/, renderFile(resolve("../", "templates", "frontend-backend", source), data_1 || {}, {})];
+                return [4 /*yield*/, renderFile(resolve(__dirname, "../", "templates", "frontend-backend", source), data_1 || {}, {})];
             case 2:
                 content = _d.sent();
                 writeFileSync(target, content);

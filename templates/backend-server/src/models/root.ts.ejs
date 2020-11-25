@@ -79,6 +79,7 @@ class RootModel extends Model {
     $afterGet(): void {
         for (const key in this) {
             if (Object.hasOwnProperty.call(this, key)) {
+                // After a model instance is fetched from the database, decode any HTML entities in its fields
                 this[key] = RootModel.decodeHTMLEntities(this[key]);
             }
         }

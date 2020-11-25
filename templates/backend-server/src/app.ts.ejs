@@ -11,7 +11,7 @@ import * as session from "express-session";
 import * as cookieParser from "cookie-parser";
 import * as connectRedis from "connect-redis";
 import { NextFunction, Request, Response } from "express";
-import { setupRouterHandlers } from "./routes";
+import { handleRoutesOf } from "./routes";
 
 (async () => {
     const csrf = csurf();
@@ -91,7 +91,7 @@ import { setupRouterHandlers } from "./routes";
     //=================================================================
 
     //=======================STARTUP SCRIPTS===========================
-    setupRouterHandlers(app);
+    handleRoutesOf(app);
     //=================================================================
 
     //=====================ERROR HANDLERS==============================
