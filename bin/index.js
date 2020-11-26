@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const { prompt } = require("inquirer");
 const projectTypes = [
     "React (Static frontend)",
