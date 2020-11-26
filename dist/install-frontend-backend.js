@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 /* This modules installs a complete client+server app basis at the project directory */
 module.exports = function (projectName, packageManager) { return __awaiter(_this, void 0, void 0, function () {
-    var resolve, renderFile, prompt, _a, writeFileSync, mkdirSync, _b, bold, red, bgRed, green, cyan, packageInstaller, destroyDirectory, projectPath, data, templateFiles, _i, templateFiles_1, _c, source, target, data_1, content, err_1, answers;
+    var resolve, renderFile, prompt, _a, writeFileSync, mkdirSync, _b, bold, red, bgRed, green, cyan, packageInstaller, destroyDirectory, projectPath, sessionSecret, data, templateFiles, _i, templateFiles_1, _c, source, target, data_1, content, err_1, answers;
     return __generator(this, function (_d) {
         switch (_d.label) {
             case 0:
@@ -49,7 +49,8 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                 packageInstaller = require("./package-installer");
                 destroyDirectory = require("./utils").destroyDirectory;
                 projectPath = resolve(process.cwd(), projectName);
-                data = { projectName: projectName };
+                sessionSecret = require("randomstring").generate({ length: 48 });
+                data = { projectName: projectName, sessionSecret: sessionSecret };
                 templateFiles = [
                     { source: ".babelrc.js.ejs", target: resolve(projectPath, ".babelrc.js"), data: data },
                     { source: ".eslintrc.ejs", target: resolve(projectPath, ".eslintrc"), data: data },
@@ -63,13 +64,14 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                     { source: "postcss.config.js.ejs", target: resolve(projectPath, "postcss.config.js"), data: data },
                     { source: "tsconfig.json.ejs", target: resolve(projectPath, "tsconfig.json"), data: data },
                     { source: "webpack.common.js.ejs", target: resolve(projectPath, "webpack.common.js"), data: data },
-                    { source: "webpack.lb.js.ejs", target: resolve(projectPath, "webpack.lib.js"), data: data },
+                    { source: "webpack.lib.js.ejs", target: resolve(projectPath, "webpack.lib.js"), data: data },
                     { source: "dist/client/public/index.ejs", target: resolve(projectPath, "dist/client/public/index.ejs"), data: data },
                     { source: "src/client/common/stylesheets/config.scss.ejs", target: resolve(projectPath, "src/client/common/stylesheets/config.scss"), data: data },
                     { source: "src/client/common/stylesheets/index.scss.ejs", target: resolve(projectPath, "src/client/common/stylesheets/index.scss"), data: data },
                     { source: "src/client/common/stylesheets/status.scss.ejs", target: resolve(projectPath, "src/client/common/stylesheets/status.scss"), data: data },
                     { source: "src/client/common/stylesheets/utils.scss.ejs", target: resolve(projectPath, "src/client/common/stylesheets/utils.scss"), data: data },
                     { source: "src/client/common/index.ts.ejs", target: resolve(projectPath, "src/client/common/index.ts"), data: data },
+                    { source: "src/client/common/utils.tsx.ejs", target: resolve(projectPath, "src/client/common/utils.tsx"), data: data },
                     { source: "src/client/public/home/index.tsx.ejs", target: resolve(projectPath, "src/client/public/home/index.tsx"), data: data },
                     { source: "src/client/public/home/index.scss.ejs", target: resolve(projectPath, "src/client/public/home/index.scss"), data: data },
                     { source: "src/client/public/app.tsx.ejs", target: resolve(projectPath, "src/client/public/app.tsx"), data: data },
@@ -102,6 +104,7 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                 mkdirSync(resolve(projectPath, "src/client/common/stylesheets"));
                 mkdirSync(resolve(projectPath, "src/client/public"));
                 mkdirSync(resolve(projectPath, "src/client/public/home"));
+                mkdirSync(resolve(projectPath, "src/server"));
                 mkdirSync(resolve(projectPath, "src/server/models"));
                 mkdirSync(resolve(projectPath, "src/server/routes"));
                 mkdirSync(resolve(projectPath, "src/server/services"));
@@ -131,84 +134,84 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                 // Install dependencies
                 console.log(cyan("Installing dependencies..."));
                 packageInstaller(projectPath, packageManager, [
-                    "aws-sdk",
-                    "axios",
-                    "bcryptjs",
-                    "connect-redis",
-                    "cookie-parser",
-                    "csurf",
-                    "debug",
-                    "ejs",
-                    "express",
-                    "express-favicon",
-                    "express-session",
-                    "express-validator",
-                    "helmet",
-                    "http-errors",
-                    "jsonwebtoken",
-                    "knex",
-                    "moment",
-                    "morgan",
-                    "multer",
-                    "multer-s3",
-                    "numeral",
-                    "objection",
-                    "pg",
-                    "redis",
-                    "uuid",
-                    "validator"
+                    "aws-sdk@^2.x.x",
+                    "axios@^0.x.x",
+                    "bcryptjs@^2.x.x",
+                    "connect-redis@^5.x.x",
+                    "cookie-parser@^1.x.x",
+                    "csurf@^1.x.x",
+                    "debug@^4.x.x",
+                    "ejs@^3.x.x",
+                    "express@^4.x.x",
+                    "express-favicon@^2.x.x",
+                    "express-session@^1.x.x",
+                    "express-validator@^6.x.x",
+                    "helmet@^4.x.x",
+                    "http-errors@^1.x.x",
+                    "jsonwebtoken@^8.x.x",
+                    "knex@^0.x.x",
+                    "moment@^2.x.x",
+                    "morgan@^1.x.x",
+                    "multer@^1.x.x",
+                    "multer-s3@^2.x.x",
+                    "numeral@^2.x.x",
+                    "objection@^2.x.x",
+                    "pg@^8.x.x",
+                    "redis@^3.x.x",
+                    "uuid@^8.x.x",
+                    "validator@^13.x.x"
                 ]);
                 console.log(green("Installed dependencies!\n"));
                 // Install development dependencies
                 console.log(cyan("Installing development dependencies..."));
                 packageInstaller(projectPath, packageManager, [
-                    "@babel/core",
-                    "@babel/plugin-transform-spread",
-                    "@babel/preset-env",
-                    "@types/connect-redis",
-                    "@types/cookie-parser",
-                    "@types/csurf",
-                    "@types/debug",
-                    "@types/express",
-                    "@types/express-session",
-                    "@types/jsonwebtoken",
-                    "@types/morgan",
-                    "@types/pg",
-                    "@types/react",
-                    "@types/react-dom",
-                    "@types/react-router-dom",
-                    "@types/redis",
-                    "@types/validator",
-                    "@types/yup",
-                    "@typescript-eslint/eslint-plugin",
-                    "@typescript-eslint/parser",
-                    "autoprefixer",
-                    "babel-loader",
-                    "concurrently",
-                    "css-loader",
-                    "eslint",
-                    "eslint-config-defaults",
-                    "eslint-plugin-react",
-                    "faker",
-                    "file-loader",
-                    "formik",
-                    "node-sass",
-                    "nodemon",
-                    "postcss",
-                    "postcss-loader",
-                    "prettier",
-                    "react",
-                    "react-dom",
-                    "react-router-dom",
-                    "react-simple-widgets",
-                    "sass-loader",
-                    "style-loader",
-                    "ts-loader",
-                    "typescript",
-                    "url-loader",
-                    "webpack@4.44.2",
-                    "webpack-cli",
-                    "yup"
+                    "@babel/core@^7.x.x",
+                    "@babel/plugin-transform-spread@^7.x.x",
+                    "@babel/preset-env@^7.x.x",
+                    "@types/connect-redis@^0.x.x",
+                    "@types/cookie-parser@^1.x.x",
+                    "@types/csurf@^1.x.x",
+                    "@types/debug@^4.x.x",
+                    "@types/express@^4.x.x",
+                    "@types/express-session@^1.x.x",
+                    "@types/jsonwebtoken@^8.x.x",
+                    "@types/morgan@^1.x.x",
+                    "@types/pg@^7.x.x",
+                    "@types/react@^17.x.x",
+                    "@types/react-dom@^17.x.x",
+                    "@types/react-router-dom@^5.x.x",
+                    "@types/redis@^2.x.x",
+                    "@types/validator@^13.x.x",
+                    "@types/yup@^0.x.x",
+                    "@typescript-eslint/eslint-plugin@^4.x.x",
+                    "@typescript-eslint/parser@^4.x.x",
+                    "autoprefixer@^10.x.x",
+                    "babel-loader@^8.x.x",
+                    "concurrently@^5.x.x",
+                    "css-loader@^5.x.x",
+                    "eslint@^7.x.x",
+                    "eslint-config-defaults@^9.x.x",
+                    "eslint-plugin-react@^7.x.x",
+                    "faker@^5.x.x",
+                    "file-loader@^6.x.x",
+                    "formik@^2.x.x",
+                    "node-sass@^5.x.x",
+                    "nodemon@^2.x.x",
+                    "postcss@^8.x.x",
+                    "postcss-loader@^4.x.x",
+                    "prettier@^2.x.x",
+                    "react@^16.x.x",
+                    "react-dom@^16.x.x",
+                    "react-router-dom@^5.x.x",
+                    "react-simple-widgets@^3.x.x",
+                    "sass-loader@^10.x.x",
+                    "style-loader@^2.x.x",
+                    "ts-loader@^8.x.x",
+                    "typescript@^4.x.x",
+                    "url-loader@^4.x.x",
+                    "webpack@5.x.x",
+                    "webpack-cli@^4.x.x",
+                    "yup@^0.x.x"
                 ], true);
                 console.log(green("Installed development dependencies!\n"));
                 console.log(green("Project setup complete!\n"));

@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 /* This modules installs a frontend server app basis at the project directory */
 module.exports = function (projectName, packageManager) { return __awaiter(_this, void 0, void 0, function () {
-    var resolve, renderFile, prompt, _a, writeFileSync, mkdirSync, _b, bold, red, bgRed, green, cyan, packageInstaller, destroyDirectory, data, projectPath, templateFiles, _i, templateFiles_1, _c, source, target, data_1, content, err_1, answers;
+    var resolve, renderFile, prompt, _a, writeFileSync, mkdirSync, _b, bold, red, bgRed, green, cyan, packageInstaller, destroyDirectory, projectPath, sessionSecret, data, templateFiles, _i, templateFiles_1, _c, source, target, data_1, content, err_1, answers;
     return __generator(this, function (_d) {
         switch (_d.label) {
             case 0:
@@ -48,8 +48,9 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                 _b = require("chalk"), bold = _b.bold, red = _b.red, bgRed = _b.bgRed, green = _b.green, cyan = _b.cyan;
                 packageInstaller = require("./package-installer");
                 destroyDirectory = require("./utils").destroyDirectory;
-                data = { projectName: projectName };
                 projectPath = resolve(process.cwd(), projectName);
+                sessionSecret = require("randomstring").generate({ length: 48 });
+                data = { projectName: projectName, sessionSecret: sessionSecret };
                 templateFiles = [
                     { source: ".babelrc.js.ejs", target: resolve(projectPath, ".babelrc.js"), data: data },
                     { source: ".eslintrc.ejs", target: resolve(projectPath, ".eslintrc"), data: data },
@@ -104,58 +105,58 @@ module.exports = function (projectName, packageManager) { return __awaiter(_this
                 // Install dependencies
                 console.log(cyan("Installing dependencies..."));
                 packageInstaller(projectPath, packageManager, [
-                    "aws-sdk",
-                    "axios",
-                    "bcryptjs",
-                    "connect-redis",
-                    "cookie-parser",
-                    "csurf",
-                    "debug",
-                    "express",
-                    "express-favicon",
-                    "express-session",
-                    "express-validator",
-                    "helmet",
-                    "http-errors",
-                    "jsonwebtoken",
-                    "knex",
-                    "moment",
-                    "morgan",
-                    "multer",
-                    "multer-s3",
-                    "numeral",
-                    "objection",
-                    "pg",
-                    "redis",
-                    "uuid",
-                    "validator"
+                    "aws-sdk@^2.x.x",
+                    "axios@^0.x.x",
+                    "bcryptjs@^2.x.x",
+                    "connect-redis@^5.x.x",
+                    "cookie-parser@^1.x.x",
+                    "csurf@^1.x.x",
+                    "debug@^4.x.x",
+                    "express@^4.x.x",
+                    "express-favicon@^2.x.x",
+                    "express-session@^1.x.x",
+                    "express-validator@^6.x.x",
+                    "helmet@^4.x.x",
+                    "http-errors@^1.x.x",
+                    "jsonwebtoken@^8.x.x",
+                    "knex@^0.x.x",
+                    "moment@^2.x.x",
+                    "morgan@^1.x.x",
+                    "multer@^1.x.x",
+                    "multer-s3@^2.x.x",
+                    "numeral@^2.x.x",
+                    "objection@^2.x.x",
+                    "pg@^8.x.x",
+                    "redis@^3.x.x",
+                    "uuid@^8.x.x",
+                    "validator@^13.x.x"
                 ]);
                 console.log(green("Installed dependencies!\n"));
                 // Install development dependencies
                 console.log(cyan("Installing development dependencies..."));
                 packageInstaller(projectPath, packageManager, [
-                    "@babel/core",
-                    "@babel/plugin-transform-spread",
-                    "@babel/preset-env",
-                    "@types/connect-redis",
-                    "@types/cookie-parser",
-                    "@types/csurf",
-                    "@types/debug",
-                    "@types/express",
-                    "@types/express-session",
-                    "@types/morgan",
-                    "@types/pg",
-                    "@types/redis",
-                    "@types/validator",
-                    "@typescript-eslint/eslint-plugin",
-                    "@typescript-eslint/parser",
-                    "eslint",
-                    "eslint-config-defaults",
-                    "eslint-plugin-react",
-                    "faker",
-                    "nodemon",
-                    "prettier",
-                    "typescript"
+                    "@babel/core@^7.x.x",
+                    "@babel/plugin-transform-spread@^7.x.x",
+                    "@babel/preset-env@^7.x.x",
+                    "@types/connect-redis@^0.x.x",
+                    "@types/cookie-parser@^1.x.x",
+                    "@types/csurf@^1.x.x",
+                    "@types/debug@^4.x.x",
+                    "@types/express@^4.x.x",
+                    "@types/express-session@^1.x.x",
+                    "@types/morgan@^1.x.x",
+                    "@types/pg@^7.x.x",
+                    "@types/redis@^2.x.x",
+                    "@types/validator@^13.x.x",
+                    "@typescript-eslint/eslint-plugin@^4.x.x",
+                    "@typescript-eslint/parser@^4.x.x",
+                    "eslint@^7.x.x",
+                    "eslint-config-defaults@^9.x.x",
+                    "eslint-plugin-react@^7.x.x",
+                    "faker@^5.x.x",
+                    "nodemon@^2.x.x",
+                    "prettier@^2.x.x",
+                    "typescript@^4.x.x"
                 ], true);
                 console.log(green("Installed development dependencies!\n"));
                 console.log(green("Project setup complete!\n"));

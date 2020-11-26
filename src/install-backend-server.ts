@@ -8,8 +8,9 @@ module.exports = async (projectName: string, packageManager: string): Promise<vo
     const packageInstaller = require("./package-installer");
     const { destroyDirectory } = require("./utils");
 
-    const data = { projectName };
     const projectPath = resolve(process.cwd(), projectName);
+    const sessionSecret = require("randomstring").generate({ length: 48 });
+    const data = { projectName, sessionSecret };
 
     // Enumerate the template files
     const templateFiles = [
@@ -59,31 +60,31 @@ module.exports = async (projectName: string, packageManager: string): Promise<vo
             // Install dependencies
             console.log(cyan("Installing dependencies..."));
             packageInstaller(projectPath, packageManager, [
-                "aws-sdk",
-                "axios",
-                "bcryptjs",
-                "connect-redis",
-                "cookie-parser",
-                "csurf",
-                "debug",
-                "express",
-                "express-favicon",
-                "express-session",
-                "express-validator",
-                "helmet",
-                "http-errors",
-                "jsonwebtoken",
-                "knex",
-                "moment",
-                "morgan",
-                "multer",
-                "multer-s3",
-                "numeral",
-                "objection",
-                "pg",
-                "redis",
-                "uuid",
-                "validator"
+                "aws-sdk@^2.x.x",
+                "axios@^0.x.x",
+                "bcryptjs@^2.x.x",
+                "connect-redis@^5.x.x",
+                "cookie-parser@^1.x.x",
+                "csurf@^1.x.x",
+                "debug@^4.x.x",
+                "express@^4.x.x",
+                "express-favicon@^2.x.x",
+                "express-session@^1.x.x",
+                "express-validator@^6.x.x",
+                "helmet@^4.x.x",
+                "http-errors@^1.x.x",
+                "jsonwebtoken@^8.x.x",
+                "knex@^0.x.x",
+                "moment@^2.x.x",
+                "morgan@^1.x.x",
+                "multer@^1.x.x",
+                "multer-s3@^2.x.x",
+                "numeral@^2.x.x",
+                "objection@^2.x.x",
+                "pg@^8.x.x",
+                "redis@^3.x.x",
+                "uuid@^8.x.x",
+                "validator@^13.x.x"
             ]);
             console.log(green("Installed dependencies!\n"));
 
@@ -93,28 +94,28 @@ module.exports = async (projectName: string, packageManager: string): Promise<vo
                 projectPath,
                 packageManager,
                 [
-                    "@babel/core",
-                    "@babel/plugin-transform-spread",
-                    "@babel/preset-env",
-                    "@types/connect-redis",
-                    "@types/cookie-parser",
-                    "@types/csurf",
-                    "@types/debug",
-                    "@types/express",
-                    "@types/express-session",
-                    "@types/morgan",
-                    "@types/pg",
-                    "@types/redis",
-                    "@types/validator",
-                    "@typescript-eslint/eslint-plugin",
-                    "@typescript-eslint/parser",
-                    "eslint",
-                    "eslint-config-defaults",
-                    "eslint-plugin-react",
-                    "faker",
-                    "nodemon",
-                    "prettier",
-                    "typescript"
+                    "@babel/core@^7.x.x",
+                    "@babel/plugin-transform-spread@^7.x.x",
+                    "@babel/preset-env@^7.x.x",
+                    "@types/connect-redis@^0.x.x",
+                    "@types/cookie-parser@^1.x.x",
+                    "@types/csurf@^1.x.x",
+                    "@types/debug@^4.x.x",
+                    "@types/express@^4.x.x",
+                    "@types/express-session@^1.x.x",
+                    "@types/morgan@^1.x.x",
+                    "@types/pg@^7.x.x",
+                    "@types/redis@^2.x.x",
+                    "@types/validator@^13.x.x",
+                    "@typescript-eslint/eslint-plugin@^4.x.x",
+                    "@typescript-eslint/parser@^4.x.x",
+                    "eslint@^7.x.x",
+                    "eslint-config-defaults@^9.x.x",
+                    "eslint-plugin-react@^7.x.x",
+                    "faker@^5.x.x",
+                    "nodemon@^2.x.x",
+                    "prettier@^2.x.x",
+                    "typescript@^4.x.x"
                 ],
                 true
             );
