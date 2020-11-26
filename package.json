@@ -1,6 +1,6 @@
 {
     "name": "mkts",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "description": "A command line tool for creating different types of typescript applications",
     "author": "Kwame Opare Asiedu",
     "license": "MIT",
