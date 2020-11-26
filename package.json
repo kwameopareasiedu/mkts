@@ -1,10 +1,11 @@
 {
     "name": "mkts",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A command line tool for creating different types of typescript applications",
     "author": "Kwame Opare Asiedu",
     "license": "MIT",
     "main": "bin/index.js",
+    "bin": "bin/index.js",
     "scripts": {
         "test-run": "node bin/index.js",
         "watch": "tsc --watch"
