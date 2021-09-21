@@ -10,7 +10,6 @@
         "allowJs": true,
         "jsx": "react"
     },
-    //    "files": ["references.d.ts"],
     "include": ["src/**/*"],
     "exclude": ["node_modules", "dist", "bin"]
 }
