@@ -1,0 +1,180 @@
+import * as path from "path";
+import * as http from "http";
+import * as redis from "redis";
+import * as csurf from "csurf";
+import * as _debug from "debug";
+import * as morgan from "morgan";
+import * as helmet from "helmet";
+import * as express from "express";
+import { NextFunction, Request, Response } from "express";
+import * as session from "express-session";
+import * as cookieParser from "cookie-parser";
+import * as connectRedis from "connect-redis";
+import { MongoClient } from "mongodb";
+import { configureRoutes } from "./routes";
+import { configureInit } from "./init";
+
+(async () => {
+    const csrf = csurf();
+    const app = express();
+    const RedisStore = connectRedis(session);
+    const debug = _debug("elmnation");
+    const isDev = process.env.NODE_ENV === "development";
+    const maintenanceOn = process.env.MAINTENANCE_MODE === "true";
+
+    // Uncomment to add the favicon icon
+    // app.use(favicon(path.resolve(__dirname, "./favicon.png")));
+
+    //=====================VIEW ENGINE SETUP===========================
+    app.set("views", path.join(__dirname, "../client"));
+    app.set("view engine", "ejs");
+    //=================================================================
+
+    //=====================SETUP MIDDLEWARES===========================
+    if (!isDev) app.set("trust proxy", 1);
+
+    app.use(morgan("dev"));
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: false }));
+    app.use(cookieParser());
+    app.use(express.static(path.join(__dirname, "../client")));
+    app.use("/uploads", express.static(path.join(__dirname, "../../uploads")));
+
+    //====================SETUP MONGODB/MONGOOSE==========================
+    global.mongoClient = new MongoClient(process.env.MONGODB_URL);
+    await global.mongoClient.connect();
+    //===================================================================
+
+    //=====================SETUP SESSION=================================
+    const redisClient = (() => {
+        if (!process.env.REDIS_URL) return null;
+        const client = redis.createClient({ url: process.env.REDIS_URL });
+        client.on("error", () => console.error("Redis connection error!"));
+        client.on("ready", () => console.log("Connected to Redis!"));
+        return client;
+    })();
+
+    app.use(
+        session({
+            name: "T6vaR6AVUYil6xjKdOKmD",
+            secret: process.env.SESSION_SECRET,
+            store: redisClient ? new RedisStore({ client: redisClient }) : null,
+            cookie: { maxAge: 6 * 60 * 60 * 1000, httpOnly: true, sameSite: "lax", secure: !isDev }, // 6 hours
+            saveUninitialized: true,
+            rolling: true,
+            resave: false
+        })
+    );
+    //=================================================================
+
+    //=====================SETUP HELMET================================
+    const contentSecurityPolicyDirectives: any = {
+        defaultSrc: ["'self'", "http:", "https:"],
+        baseUri: ["'self'"],
+        connectSrc: ["'self'", "https:", "blob:"],
+        blockAllMixedContent: [],
+        fontSrc: ["'self'", "https:", "data:"],
+        frameAncestors: ["'self'"],
+        imgSrc: ["http:", "https:", "data:", "blob:"],
+        objectSrc: ["'none'"],
+        scriptSrc: [
+            "'self'",
+            "https://cdn.jsdelivr.net",
+            "https://maps.googleapis.com",
+            "https://fonts.gstatic.com",
+            "https://cdnjs.cloudflare.com",
+            "https://kit.fontawesome.com",
+        ],
+        scriptSrcAttr: ["'none'"],
+        styleSrc: ["'self'", "https:", "'unsafe-inline'"],
+        workerSrc: ["'self'", "https:", "blob:"]
+    };
+
+    if (!isDev) contentSecurityPolicyDirectives["upgradeInsecureRequests"] = [];
+
+    app.use(helmet({ contentSecurityPolicy: { directives: contentSecurityPolicyDirectives } }));
+
+    if (!maintenanceOn) {
+        app.use((req, res, next) => {
+            csrf(req, res, next);
+        });
+
+        // Attach CSRF Token
+        app.use((req, res, next) => {
+            res.cookie("XSRF-TOKEN", req.csrfToken());
+            return next();
+        });
+    }
+    //=================================================================
+
+    //=======================STARTUP SCRIPTS===========================
+    await configureInit();
+    configureRoutes(app);
+    //=================================================================
+
+    //=====================ERROR HANDLERS==============================
+    // CSRF error handler
+    app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+        if (err.code !== "EBADCSRFTOKEN") return next(err);
+        return res.status(403).json({ error: 403, code: "SESSION_EXPIRED" });
+    });
+
+    // General error handler
+    // eslint-disable-next-line no-unused-vars
+    app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+        console.error(err);
+        return res.status(err.status || 404).send(err.message);
+    });
+    //=================================================================
+
+    //=====================SETUP SERVER================================
+    const normalizePort = (val: string): boolean | string | number => {
+        const port = parseInt(val, 10);
+
+        // named pipe
+        if (isNaN(port)) return val;
+
+        // port number
+        if (port >= 0) return port;
+
+        return false;
+    };
+
+    /* Event listener for HTTP server "error" event */
+    const onError = (error: any): void => {
+        if (error.syscall !== "listen") throw error;
+
+        const bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
+
+        // handle specific listen errors with friendly messages
+        switch (error.code) {
+            case "EACCES":
+                console.error(bind + " requires elevated privileges");
+                process.exit(1);
+                break;
+            case "EADDRINUSE":
+                console.error(bind + " is already in use");
+                process.exit(1);
+                break;
+            default:
+                throw error;
+        }
+    };
+
+    /* Event listener for HTTP server "listening" event */
+    const onListening = () => {
+        const addr = server.address();
+        const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+        if (isDev) console.log("Listening on " + bind);
+        debug("Listening on " + bind);
+    };
+
+    const port = normalizePort(process.env.PORT || "3000");
+    app.set("port", port);
+
+    const server = http.createServer(app);
+    server.on("error", onError);
+    server.on("listening", onListening);
+    server.listen(port);
+    //=================================================================
+})();

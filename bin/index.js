@@ -1,46 +1,24 @@
 #!/usr/bin/env node
 const { prompt } = require("inquirer");
-const projectTypes = [
-    "React (Static frontend)",
-    "React (Frontend server)",
-    "NodeJS (Backend server)",
-    "NodeJS + React (Full application)",
-    // "Library (NPM)",
-    // "Electron (Desktop)",
-];
-const packageManagers = ["Yarn", "NPM"];
+const projectTypes = ["Full Stack (NodeJS backend + React frontend)", "Frontend only (React)"];
 
-console.log("mkts, 0.1.0");
-console.log("Bootstrap typescript application without the hassle");
-console.log("Project page: https://github.com/kwameopareasiedu/mkts");
-console.log("------------------------------------------------------\n");
+console.log("mkts, 2.0.0-alpha");
+console.log("Bootstrap React, NodeJS or NodeJS+React TypeScript apps with speed");
+console.log("Homepage: https://github.com/kwameopareasiedu/mkts");
+console.log("--------------------------------------------------\n");
 
 prompt([
     { name: "projectName", type: "input", message: "What's the name of your app?" },
-    { name: "projectType", type: "list", choices: projectTypes, message: "What type of app is this?" },
-    { name: "packageManager", type: "list", choices: packageManagers, message: "Select the preferred package manager to use" }
+    { name: "projectType", type: "list", choices: projectTypes, message: "What type of app is this?" }
 ]).then(async answers => {
-    const ensureRootDir = require("../dist/ensure-root-directory");
-    const installStaticFrontend = require("../dist/install-static-frontend");
-    const installFrontendServer = require("../dist/install-frontend-server");
-    const installBackendServer = require("../dist/install-backend-server");
-    const installFrontendBackend = require("../dist/install-frontend-backend");
+    const { ensureFolder } = require("../dist/utils");
+    const { createFullStackApp } = require("../dist/create-full-stack-app");
+    const { projectName, projectType } = answers;
 
-    const { projectName, projectType, packageManager } = answers;
-
-    if (ensureRootDir(projectName)) {
+    if (ensureFolder(projectName)) {
         switch (projectType) {
             case projectTypes[0]:
-                await installStaticFrontend(projectName, packageManager);
-                break;
-            case projectTypes[1]:
-                await installFrontendServer(projectName, packageManager);
-                break;
-            case projectTypes[2]:
-                await installBackendServer(projectName, packageManager);
-                break;
-            case projectTypes[3]:
-                await installFrontendBackend(projectName, packageManager);
+                await createFullStackApp(projectName);
                 break;
             default:
                 break;
