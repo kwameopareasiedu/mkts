@@ -1,0 +1,21 @@
+/** Runs initialization tasks before the server starts */
+
+export const configureInit = async (): Promise<void> => {
+    await ensureModelConstants();
+    console.log("Configured init");
+};
+
+/**
+ * This startup script ensures model constants are read in from the database
+ * into memory. This reduces the load on the database server, increasing the
+ * speed of requests. The script loads constants from the models defined within
+ * it. Any script that requires values of these constants can look them up in
+ * the global object
+ */
+const ensureModelConstants = async (): Promise<void> => {
+    try {
+    } catch (err) {
+        console.error(__filename, err);
+        console.log(`Init Error: Ensure Model Constants: ${err.message}`);
+    }
+};

@@ -1,0 +1,14 @@
+import { RootModel } from "./root";
+
+export class User extends RootModel {
+    static readonly COLLECTION_NAME = "users";
+
+    readonly name: string;
+    readonly email: string;
+    readonly telephone: string;
+    readonly password: string;
+
+    static query() {
+        return global.mongoClient.db().collection<User>(User.COLLECTION_NAME);
+    }
+}

@@ -1,0 +1,17 @@
+import * as path from "path";
+import * as moment from "moment";
+import * as multer from "multer";
+import { generate } from "randomstring";
+
+const uploader = multer({
+    storage: multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, path.join(process.cwd(), "uploads"));
+        },
+        filename: (req, file, cb) => {
+            cb(null, moment().format("YYYYMMDDHHmmssSSS") + generate({ length: 8 }) + path.extname(file.originalname));
+        }
+    })
+});
+
+export default uploader;

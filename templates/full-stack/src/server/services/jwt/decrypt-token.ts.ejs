@@ -1,0 +1,6 @@
+import { verify } from "jsonwebtoken";
+
+export const decryptToken = (token: string, secret?: string) => {
+    if (!token) throw new Error("JWT token string is required");
+    return verify(token, secret || process.env.JWT_SECRET);
+};
