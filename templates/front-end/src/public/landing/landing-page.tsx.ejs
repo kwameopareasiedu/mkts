@@ -1,0 +1,21 @@
+import "./landing-page.scss";
+import React from "react";
+
+export const LandingPage = (): any => {
+    document.title = "<%= projectName %>";
+
+    return (
+        <div id="landing-page" className="grid-center h-100">
+            <div className="container w-640">
+                <h1 className="text-center">
+                    Made with <code>mkts</code> with <i className="fa fa-heart" />
+                </h1>
+                <p className="text-center mb-0">
+                    <i>
+                        <small>v2.0.0</small>
+                    </i>
+                </p>
+            </div>
+        </div>
+    );
+};
