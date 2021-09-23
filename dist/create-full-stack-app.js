@@ -99,7 +99,6 @@ var createFullStackApp = function (name) { return __awaiter(void 0, void 0, void
                         "@types/uuid",
                         "@types/validator",
                         "@types/webpack",
-                        "@types/yup",
                         "@typescript-eslint/eslint-plugin",
                         "@typescript-eslint/parser",
                         "autoprefixer",

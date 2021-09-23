@@ -61,7 +61,6 @@ export const createFullStackApp = async (name: string): Promise<void> => {
             "@types/uuid",
             "@types/validator",
             "@types/webpack",
-            "@types/yup",
             "@typescript-eslint/eslint-plugin",
             "@typescript-eslint/parser",
             "autoprefixer",

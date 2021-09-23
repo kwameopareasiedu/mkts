@@ -80,7 +80,6 @@ var createFrontEndApp = function (name) { return __awaiter(void 0, void 0, void 
                         "@types/react-router-dom",
                         "@types/redis",
                         "@types/webpack",
-                        "@types/yup",
                         "@typescript-eslint/eslint-plugin",
                         "@typescript-eslint/parser",
                         "autoprefixer",

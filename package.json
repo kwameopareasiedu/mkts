@@ -1,6 +1,6 @@
 {
     "name": "mkts",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "A command line tool for bootstrapping different types of typescript apps",
     "author": "Kwame Opare Asiedu",
     "license": "MIT",

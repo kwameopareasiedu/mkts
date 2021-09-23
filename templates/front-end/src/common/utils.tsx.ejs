@@ -1,7 +1,5 @@
 import React from "react";
 import { AxiosError } from "axios";
-import ObjectId from "bson-objectid";
-import moment, { Moment } from "moment";
 
 /**
  * Creates a status span from the status given
@@ -26,6 +24,3 @@ export const logError = (err: AxiosError): string => {
     if (!err.response) return err.message;
     return err.response.data.message;
 };
-
-/** Returns a moment from an object id string */
-export const objectIdMoment = (id: string): Moment => moment(ObjectId.createFromHexString(id).getTimestamp());

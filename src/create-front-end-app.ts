@@ -42,7 +42,6 @@ export const createFrontEndApp = async (name: string): Promise<void> => {
             "@types/react-router-dom",
             "@types/redis",
             "@types/webpack",
-            "@types/yup",
             "@typescript-eslint/eslint-plugin",
             "@typescript-eslint/parser",
             "autoprefixer",
