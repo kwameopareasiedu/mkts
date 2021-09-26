@@ -1,6 +1,6 @@
 {
     "name": "mkts",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "description": "A command line tool for bootstrapping different types of typescript apps",
     "author": "Kwame Opare Asiedu",
     "license": "MIT",
@@ -23,7 +23,7 @@
         "@babel/preset-env": "^7.15.6",
         "@types/ejs": "^3.1.0",
         "@types/inquirer": "^8.1.2",
-        "@types/node": "^16.9.6",
+        "@types/node": "^16.10.1",
         "@types/randomstring": "^1.1.7",
         "@typescript-eslint/eslint-plugin": "^4.31.2",
         "@typescript-eslint/parser": "^4.31.2",
