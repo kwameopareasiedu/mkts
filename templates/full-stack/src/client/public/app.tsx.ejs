@@ -43,7 +43,7 @@ axios.interceptors.response.use(
          * If you want access to any request error to do
          * some preprocessing, this is the place to do it
          */
-        return Promise.reject({ message: err.response && err.response.data ? err.response.data : err.message });
+        return throw err;
     }
 );
 
