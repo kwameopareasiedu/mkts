@@ -11,8 +11,12 @@ interface WriteTarget {
 
 export const createApp = async (name: string, templateFolderPath: string): Promise<void> => {
     const projectPath = resolve(process.cwd(), name);
-    const templateData = { projectName: name, sessionSecret: generate({ length: 48 }) };
     const templateFiles = listFiles(templateFolderPath);
+    const templateData = {
+        projectName: name,
+        sessionSecret: generate({ length: 48 }),
+        sessionName: generate({ length: 24 })
+    };
 
     const projectFolders = templateFiles.reduce((acc, templateFile) => {
         const targetPath = resolve(projectPath, relative(templateFolderPath, dirname(templateFile)));

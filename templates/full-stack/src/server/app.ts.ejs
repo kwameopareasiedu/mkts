@@ -56,7 +56,7 @@ import { configureInit } from "./init";
 
     app.use(
         session({
-            name: "T6vaR6AVUYil6xjKdOKmD",
+            name: "<%= sessionName %>",
             secret: process.env.SESSION_SECRET,
             store: redisClient ? new RedisStore({ client: redisClient }) : null,
             cookie: { maxAge: 6 * 60 * 60 * 1000, httpOnly: true, sameSite: "lax", secure: !isDev }, // 6 hours
