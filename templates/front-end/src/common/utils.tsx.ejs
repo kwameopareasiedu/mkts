@@ -9,16 +9,6 @@ export const createStatusSpan = (status: string): any => {
     return <span className={`status-span ${status}`}>{status}</span>;
 };
 
-/**
- * Takes the portal's API url and returns a function which takes a route path which returns a complete route url
- * E.g. For an API url of '/api/v1/auth/' and a path of '/login/admin', the generated url is
- * '/api/v1/auth/login/admin'
- */
-// eslint-disable-next-line no-unused-vars
-export const createUrl = (apiUrl: string): ((path: string) => string) => {
-    return (path: string): string => (path.startsWith("/") ? `${apiUrl}${path}` : `${apiUrl}/${path}`);
-};
-
 /** Extracts the error message from an AxiosError instance */
 export const logError = (err: AxiosError): string => {
     if (!err.response) return err.message;
