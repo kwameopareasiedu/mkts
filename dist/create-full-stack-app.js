@@ -43,7 +43,7 @@ var install_dependencies_1 = require("./install-dependencies");
 var createFullStackApp = function (name) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, (0, create_app_1.createApp)(name, (0, path_1.resolve)(__dirname, "../templates/full-stack"))];
+            case 0: return [4 /*yield*/, (0, create_app_1.createApp)(name, (0, path_1.resolve)(__dirname, "../templates/full-stack"), ["dist/client"])];
             case 1:
                 _a.sent();
                 return [4 /*yield*/, (0, install_dependencies_1.installDependencies)(name, [

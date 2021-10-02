@@ -12,7 +12,7 @@ export const createStatusSpan = (status: string): any => {
 };
 
 /** Extracts the error message from an AxiosError instance */
-export const logError = (err: AxiosError): string => {
+export const logError = (err: AxiosError<any>): string => {
     if (!err.response) return err.message;
     return err.response.data.message;
 };

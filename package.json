@@ -15,7 +15,8 @@
     },
     "scripts": {
         "test-run": "node bin/index.js",
-        "watch": "tsc --watch"
+        "watch": "tsc --watch",
+        "build": "tsc"
     },
     "devDependencies": {
         "@babel/core": "^7.15.5",

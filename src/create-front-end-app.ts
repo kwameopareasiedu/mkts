@@ -3,7 +3,7 @@ import { resolve } from "path";
 import { installDependencies } from "./install-dependencies";
 
 export const createFrontEndApp = async (name: string): Promise<void> => {
-    await createApp(name, resolve(__dirname, "../templates/front-end"));
+    await createApp(name, resolve(__dirname, "../templates/front-end"), ["dist"]);
 
     await installDependencies(
         name,

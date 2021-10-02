@@ -51,14 +51,18 @@ var fs_1 = require("fs");
 var ejs_1 = require("ejs");
 var randomstring_1 = require("randomstring");
 var chalk_1 = require("chalk");
-var createApp = function (name, templateFolderPath) { return __awaiter(void 0, void 0, void 0, function () {
-    var projectPath, templateData, templateFiles, projectFolders, writeTargets, _i, projectFolders_1, projectFolder, _a, writeTargets_1, target, content;
+var createApp = function (name, templateFolderPath, ignoreRenamePaths) { return __awaiter(void 0, void 0, void 0, function () {
+    var projectPath, templateFiles, templateData, projectFolders, writeTargets, _i, projectFolders_1, projectFolder, _a, writeTargets_1, target, content;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 projectPath = (0, path_1.resolve)(process.cwd(), name);
-                templateData = { projectName: name, sessionSecret: (0, randomstring_1.generate)({ length: 48 }) };
                 templateFiles = listFiles(templateFolderPath);
+                templateData = {
+                    projectName: name,
+                    sessionSecret: (0, randomstring_1.generate)({ length: 48 }),
+                    sessionName: (0, randomstring_1.generate)({ length: 24 })
+                };
                 projectFolders = templateFiles.reduce(function (acc, templateFile) {
                     var targetPath = (0, path_1.resolve)(projectPath, (0, path_1.relative)(templateFolderPath, (0, path_1.dirname)(templateFile)));
                     if (!acc.includes(targetPath))
@@ -66,7 +70,12 @@ var createApp = function (name, templateFolderPath) { return __awaiter(void 0, v
                     return acc;
                 }, []);
                 writeTargets = templateFiles.map(function (templateFile) {
-                    var destinationFile = templateFile.includes("dist/client") ? templateFile : templateFile.split(".ejs")[0];
+                    var ignoreRename = ignoreRenamePaths
+                        ? ignoreRenamePaths.reduce(function (ignore, _path) {
+                            return templateFile.includes(_path) ? ignore || true : ignore;
+                        }, false)
+                        : false;
+                    var destinationFile = ignoreRename ? templateFile : templateFile.split(".ejs")[0];
                     return {
                         src: templateFile,
                         dest: (0, path_1.resolve)(projectPath, (0, path_1.relative)(templateFolderPath, destinationFile))

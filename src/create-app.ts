@@ -9,7 +9,11 @@ interface WriteTarget {
     dest: string;
 }
 
-export const createApp = async (name: string, templateFolderPath: string): Promise<void> => {
+export const createApp = async (
+    name: string,
+    templateFolderPath: string,
+    ignoreRenamePaths?: Array<string>
+): Promise<void> => {
     const projectPath = resolve(process.cwd(), name);
     const templateFiles = listFiles(templateFolderPath);
     const templateData = {
@@ -25,7 +29,12 @@ export const createApp = async (name: string, templateFolderPath: string): Promi
     }, []);
 
     const writeTargets: Array<WriteTarget> = templateFiles.map(templateFile => {
-        const destinationFile = templateFile.includes("dist/client") ? templateFile : templateFile.split(".ejs")[0];
+        const ignoreRename = ignoreRenamePaths
+            ? ignoreRenamePaths.reduce((ignore, _path) => {
+                  return templateFile.includes(_path) ? ignore || true : ignore;
+              }, false)
+            : false;
+        const destinationFile = ignoreRename ? templateFile : templateFile.split(".ejs")[0];
 
         return {
             src: templateFile,
