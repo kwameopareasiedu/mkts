@@ -1,23 +1,9 @@
 {
     "parser": "@typescript-eslint/parser",
-    "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended"
-    ],
-    "parserOptions": {
-        "ecmaVersion": 2018,
-        "sourceType": "module",
-        "ecmaFeatures": { "jsx": true }
-    },
+    "extends": ["plugin:@typescript-eslint/recommended"],
+    "parserOptions": { "ecmaVersion": 2021, "sourceType": "module" },
     "plugins": ["@typescript-eslint"],
-    "env": {
-        "node": true,
-        "es6": true,
-        "mocha": true,
-        "browser": true,
-        "jest": true
-    },
+    "env": { "node": true, "es6": true, "mocha": true, "jest": true },
     "rules": {
         "no-console": "off",
         "semi": ["error", "always"],
