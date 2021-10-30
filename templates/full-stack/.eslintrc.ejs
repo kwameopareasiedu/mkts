@@ -1,15 +1,15 @@
 {
-    "extends": ["eslint:recommended"],
-    "parserOptions": {
-        "ecmaVersion": 2018,
-        "sourceType": "module"
-    },
+    "parser": "@typescript-eslint/parser",
+    "extends": ["plugin:@typescript-eslint/recommended"],
+    "plugins": ["@typescript-eslint"],
+    "parserOptions": { "ecmaVersion": 2021, "sourceType": "module" },
     "env": { "node": true, "es6": true },
     "rules": {
         "no-console": "off",
         "semi": ["error", "always"],
         "handle-callback-err": "error",
         "no-async-promise-executor": "off",
-        "@typescript-eslint/no-explicit-any": "off"
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-var-requires": "off"
     }
 }
