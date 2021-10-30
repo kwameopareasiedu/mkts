@@ -11,6 +11,8 @@ export const configureRoutes = (app: Express): void => {
                 for (let i = 0; i < value.length; i++) value[i] = sanitize(value[i]);
             } else if (Object.prototype.toString.call(value) === "[object String]") {
                 value = validator.escape(validator.trim(value));
+                value = value.replace(/&#x27;/g, "'");
+                value = value.replace(/&#x2F;/g, "/");
             }
 
             return value;
