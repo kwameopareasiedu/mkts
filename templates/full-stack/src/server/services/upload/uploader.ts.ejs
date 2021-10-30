@@ -3,7 +3,7 @@ import * as moment from "moment";
 import * as multer from "multer";
 import { generate } from "randomstring";
 
-const uploader = multer({
+export const uploader = multer({
     storage: multer.diskStorage({
         destination: (req, file, cb) => {
             cb(null, path.join(process.cwd(), "uploads"));
@@ -13,5 +13,3 @@ const uploader = multer({
         }
     })
 });
-
-export default uploader;
