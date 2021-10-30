@@ -31,6 +31,9 @@ export const extendTimeout =
 /* Converts a string to an ObjectId  */
 export const toObjectId = (id: string): ObjectId => ObjectId.createFromHexString(id);
 
+/* Creates a regex search string */
+export const toRegex = (key: string) => new RegExp(`.*${key || ""}.*`, "i");
+
 /* An interface which extends Express' Request to add more data */
 export interface AuthorizedRequest extends Request {
     session: Session & Partial<SessionData> & {};
