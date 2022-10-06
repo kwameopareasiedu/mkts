@@ -1,43 +1,44 @@
 {
-    "name": "mkts",
-    "version": "2.2.0",
-    "description": "A command line tool for bootstrapping different types of typescript apps",
-    "author": "Kwame Opare Asiedu",
-    "license": "MIT",
-    "main": "bin/index.js",
-    "bin": "bin/index.js",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/kwameopareasiedu/mkts"
-    },
-    "bugs": {
-        "url": "https://github.com/kwameopareasiedu/mkts/issues"
-    },
-    "scripts": {
-        "test-run": "node bin/index.js",
-        "watch": "tsc --watch",
-        "build": "tsc"
-    },
-    "devDependencies": {
-        "@babel/core": "^7.19.3",
-        "@babel/plugin-transform-spread": "^7.19.0",
-        "@babel/preset-env": "^7.19.3",
-        "@types/ejs": "^3.1.1",
-        "@types/inquirer": "^9.0.2",
-        "@types/node": "^18.8.2",
-        "@types/randomstring": "^1.1.8",
-        "@typescript-eslint/eslint-plugin": "^5.39.0",
-        "@typescript-eslint/parser": "^5.39.0",
-        "eslint": "^8.24.0",
-        "eslint-config-defaults": "^9.0.0"
-    },
-    "dependencies": {
-        "chalk": "^5.1.0",
-        "ejs": "^3.1.8",
-        "inquirer": "^9.1.2",
-        "open": "^8.4.0",
-        "prettier": "^2.7.1",
-        "randomstring": "^1.2.2",
-        "typescript": "^4.8.4"
-    }
+  "name": "mkts",
+  "version": "3.0.0",
+  "description": "Create modern frontend, api or library projects in seconds",
+  "author": "Kwame Opare Asiedu",
+  "license": "MIT",
+  "main": "bin/index.js",
+  "bin": "bin/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kwameopareasiedu/mkts"
+  },
+  "bugs": {
+    "url": "https://github.com/kwameopareasiedu/mkts/issues"
+  },
+  "scripts": {
+    "test-run": "node bin/index.js",
+    "watch": "tsc --watch",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.3",
+    "@babel/plugin-transform-spread": "^7.19.0",
+    "@babel/preset-env": "^7.19.3",
+    "@types/ejs": "^3.1.1",
+    "@types/inquirer": "^9.0.2",
+    "@types/node": "^18.8.2",
+    "@types/randomstring": "^1.1.8",
+    "@typescript-eslint/eslint-plugin": "^5.39.0",
+    "@typescript-eslint/parser": "^5.39.0",
+    "eslint": "^8.24.0",
+    "eslint-config-defaults": "^9.0.0"
+  },
+  "dependencies": {
+    "chalk": "^5.1.0",
+    "commander": "^9.4.1",
+    "ejs": "^3.1.8",
+    "inquirer": "^9.1.2",
+    "open": "^8.4.0",
+    "prettier": "^2.7.1",
+    "randomstring": "^1.2.2",
+    "typescript": "^4.8.4"
+  }
 }
