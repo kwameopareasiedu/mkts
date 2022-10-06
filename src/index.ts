@@ -26,16 +26,16 @@ mkts
   .option("--lib", "Create a library project")
   .action((name, { api, web, lib }) => {
     if (!api && !web && !lib) {
-      return console.error("Error: Missing project type ");
+      return console.error("error: missing project type ");
     } else if (+!!api + +!!web + +!!lib > 1) {
       return console.error(
-        "Error: Only one of --api, --web and --lib can be used"
+        "error: only one of --api, --web and --lib can be used"
       );
     }
 
-    const resolvedType = resolveProjectType(type, api, web, lib);
+    const type = resolveProjectType(api, web, lib);
 
-    console.log({ resolvedType, name });
+    console.log({ type, name });
   });
 
 mkts
@@ -57,13 +57,7 @@ mkts
     console.log({ ubuntu });
   });
 
-const resolveProjectType = (
-  type: string,
-  isApi: boolean,
-  isWeb: boolean,
-  isLib: boolean
-) => {
-  if (type) return type;
+const resolveProjectType = (isApi: boolean, isWeb: boolean, isLib: boolean) => {
   if (isApi) return projectTypes.api;
   if (isWeb) return projectTypes.web;
   if (isLib) return projectTypes.lib;
