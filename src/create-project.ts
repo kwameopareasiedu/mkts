@@ -12,22 +12,23 @@ export default async function createProject(
 ) {
   switch (type) {
     case projectTypes.api:
-      const err = await copyFiles(
-        resolve(__dirname, "../templates/api"),
-        resolve(process.cwd(), name),
+      const templateDir = resolve(__dirname, "../templates/api");
+      const projectDir = resolve(process.cwd(), name);
+
+      const err = await scaffoldProject(
+        templateDir,
+        projectDir,
         name,
         description,
         author
       );
 
       if (!err) {
-        console.log("Copied project files!\n");
+        console.log(`Scaffolded project in '${projectDir}'!\n`);
         console.log(`1. Move to project dir: cd '${name}'`);
         console.log(`2. Install dependencies: yarn install`);
-        console.log(`3. Start api server on 8000 (default port): yarn dev`);
-        console.log(
-          `4. Test api server response: curl http://localhost:8000/ping`
-        );
+        console.log(`3. Start api server: yarn dev`);
+        console.log(`4. Test api server: curl http://localhost:8000/ping`);
       } else console.error(err);
 
       return;
@@ -40,20 +41,20 @@ export default async function createProject(
   }
 }
 
-const copyFiles = async (
-  source: string,
-  destination: string,
+const scaffoldProject = async (
+  templateDir: string,
+  projectDir: string,
   projectName: string,
   projectDescription: string,
   projectAuthor: string
 ): Promise<string | null> => {
-  const destFiles = existsSync(destination) ? readdirSync(destination) : [];
+  const destFiles = existsSync(projectDir) ? readdirSync(projectDir) : [];
 
   if (destFiles.length > 0) {
     return `error: destination '${resolve(projectName)}' is not empty`;
   }
 
-  const filesGenerator = listFiles(source, []);
+  const templateFilesGenerator = listFiles(templateDir, []);
 
   const templateData = {
     appName: projectName,
@@ -62,9 +63,9 @@ const copyFiles = async (
     jwtSecret: generate({ length: 24 })
   };
 
-  for await (const src of filesGenerator) {
-    const relativeSrc = relative(resolve(source), src);
-    const dest = resolve(resolve(destination), relativeSrc).replaceAll(
+  for await (const src of templateFilesGenerator) {
+    const relativeSrc = relative(resolve(templateDir), src);
+    const dest = resolve(resolve(projectDir), relativeSrc).replaceAll(
       ".ejs",
       ""
     );
