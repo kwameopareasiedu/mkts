@@ -1,11 +1,8 @@
 #!/usr/bin/env node
 import { program as mkts } from "commander";
-
-const projectTypes = {
-  api: "api",
-  web: "web",
-  lib: "lib"
-};
+import * as inquirer from "inquirer";
+import createProject from "./create-project";
+import { projectTypes } from "./utils";
 
 mkts
   .name("mkts")
@@ -24,7 +21,7 @@ mkts
   .option("--api", "Create an backend API project in NodeJS")
   .option("--web", "Create a frontend web project using React + Vite")
   .option("--lib", "Create a library project")
-  .action((name, { api, web, lib }) => {
+  .action(async (name, { api, web, lib }) => {
     if (!api && !web && !lib) {
       return console.error("error: missing project type ");
     } else if (+!!api + +!!web + +!!lib > 1) {
@@ -35,7 +32,20 @@ mkts
 
     const type = resolveProjectType(api, web, lib);
 
-    console.log({ type, name });
+    const answers: unknown = await inquirer.prompt([
+      {
+        name: "description",
+        type: "input",
+        message: "Short project description"
+      },
+      {
+        name: "author",
+        type: "input",
+        message: "Name of author"
+      }
+    ]);
+
+    await createProject(type, name, answers.description, answers.author);
   });
 
 mkts

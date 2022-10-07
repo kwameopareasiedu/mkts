@@ -1,6 +1,0 @@
-import { sign } from "jsonwebtoken";
-
-export const encryptToken = (payload: any, expiry: string, secret?: string) => {
-    if (!payload) throw new Error("JWT payload is required");
-    return sign(payload, secret || process.env.JWT_SECRET, { expiresIn: expiry });
-};

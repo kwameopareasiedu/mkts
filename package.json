@@ -16,14 +16,15 @@
   "scripts": {
     "test-run": "node bin/index.js",
     "watch": "tsc --watch",
-    "build": "tsc"
+    "build": "tsc",
+    "copy-template": "node bin/copy-template.js"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
     "@babel/plugin-transform-spread": "^7.19.0",
     "@babel/preset-env": "^7.19.3",
     "@types/ejs": "^3.1.1",
-    "@types/inquirer": "^9.0.2",
+    "@types/inquirer": "7.3.3",
     "@types/node": "^18.8.2",
     "@types/randomstring": "^1.1.8",
     "@typescript-eslint/eslint-plugin": "^5.39.0",
@@ -35,7 +36,7 @@
     "chalk": "^5.1.0",
     "commander": "^9.4.1",
     "ejs": "^3.1.8",
-    "inquirer": "^9.1.2",
+    "inquirer": "^8.2.4",
     "open": "^8.4.0",
     "prettier": "^2.7.1",
     "randomstring": "^1.2.2",

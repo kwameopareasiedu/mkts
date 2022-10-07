@@ -1,24 +1,8 @@
 #!/usr/bin/env node
-import { readdirSync, cpSync, existsSync } from "fs";
-import { relative, resolve } from "path";
-
 import { program as copyTemplate } from "commander";
-
-async function* listFiles(dir: string, ignores: Array<string>) {
-  const dirents = readdirSync(dir, { withFileTypes: true });
-
-  for (const dirent of dirents) {
-    const res = resolve(dir, dirent.name);
-
-    if (!ignores.includes(dirent.name)) {
-      if (dirent.isDirectory()) {
-        yield* listFiles(res, ignores);
-      } else {
-        yield res;
-      }
-    }
-  }
-}
+import { cpSync, existsSync, readdirSync } from "fs";
+import { relative, resolve } from "path";
+import { listFiles } from "./utils";
 
 copyTemplate
   .argument("<source>", "Template source directory")

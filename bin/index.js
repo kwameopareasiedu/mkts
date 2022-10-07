@@ -2,11 +2,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const commander_1 = require("commander");
-const projectTypes = {
-    api: "api",
-    web: "web",
-    lib: "lib"
-};
+const inquirer = require("inquirer");
+const create_project_1 = require("./create-project");
+const utils_1 = require("./utils");
 commander_1.program
     .name("mkts")
     .description("Create modern base web, api or library Typescript projects in seconds")
@@ -18,7 +16,7 @@ commander_1.program
     .option("--api", "Create an backend API project in NodeJS")
     .option("--web", "Create a frontend web project using React + Vite")
     .option("--lib", "Create a library project")
-    .action((name, { api, web, lib }) => {
+    .action(async (name, { api, web, lib }) => {
     if (!api && !web && !lib) {
         return console.error("error: missing project type ");
     }
@@ -26,7 +24,19 @@ commander_1.program
         return console.error("error: only one of --api, --web and --lib can be used");
     }
     const type = resolveProjectType(api, web, lib);
-    console.log({ type, name });
+    const answers = await inquirer.prompt([
+        {
+            name: "description",
+            type: "input",
+            message: "Short project description"
+        },
+        {
+            name: "author",
+            type: "input",
+            message: "Name of author"
+        }
+    ]);
+    await (0, create_project_1.default)(type, name, answers.description, answers.author);
 });
 commander_1.program
     .command("example")
@@ -44,11 +54,11 @@ commander_1.program
 });
 const resolveProjectType = (isApi, isWeb, isLib) => {
     if (isApi)
-        return projectTypes.api;
+        return utils_1.projectTypes.api;
     if (isWeb)
-        return projectTypes.web;
+        return utils_1.projectTypes.web;
     if (isLib)
-        return projectTypes.lib;
+        return utils_1.projectTypes.lib;
     throw new Error("Invalid project type");
 };
 commander_1.program.parse(process.argv);

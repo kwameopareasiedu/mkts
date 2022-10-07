@@ -1,0 +1,62 @@
+import * as path from "path";
+import * as moment from "moment";
+import * as multer from "multer";
+import { generate } from "randomstring";
+import { CustomDiskStorage } from "./custom-disk-storage";
+import { StorageEngine } from "multer";
+import { Endpoint, S3 } from "aws-sdk";
+import * as MulterS3 from "multer-s3";
+
+const getStorageEngine = (): StorageEngine => {
+  const BUCKET_LOCATION = process.env.BUCKET_LOCATION;
+  const BUCKET_ENDPOINT = process.env.BUCKET_ENDPOINT;
+  const BUCKET_NAME = process.env.BUCKET_NAME;
+  const BUCKET_ACCESS_KEY = process.env.BUCKET_ACCESS_KEY;
+  const BUCKET_ACCESS_SECRET = process.env.BUCKET_ACCESS_SECRET;
+
+  if (BUCKET_LOCATION === "disk") {
+    return new CustomDiskStorage({
+      destination: (req, file, cb) => {
+        // Files end up in a folder called uploads in root
+        cb(null, path.join(process.cwd(), "uploads"));
+      },
+      filename: (req, file, cb) => {
+        // File name format is YYYYMMDDHHmmssSSSXXXXXXXX.ext
+        cb(
+          null,
+          moment().format("YYYYMMDDHHmmssSSS") +
+            generate({ length: 8 }) +
+            path.extname(file.originalname)
+        );
+      }
+    });
+  } else if (BUCKET_LOCATION === "remote") {
+    // Remote storage
+    return MulterS3({
+      s3: new S3({
+        endpoint: new Endpoint(BUCKET_ENDPOINT),
+        credentials: {
+          accessKeyId: BUCKET_ACCESS_KEY,
+          secretAccessKey: BUCKET_ACCESS_SECRET
+        }
+      }) as any,
+      bucket: BUCKET_NAME,
+      acl: "public-read",
+      key(req, file, cb) {
+        // File name format is YYYYMMDDHHmmssSSSXXXXXXXX.ext
+        cb(
+          null,
+          moment().format("YYYYMMDDHHmmssSSS") +
+            generate({ length: 8 }) +
+            path.extname(file.originalname)
+        );
+      }
+    });
+  }
+
+  throw new Error(`Unknown bucket location: '${BUCKET_LOCATION}'`);
+};
+
+export const uploader = multer({
+  storage: getStorageEngine()
+});
