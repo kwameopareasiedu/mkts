@@ -8,13 +8,15 @@ const randomstring_1 = require("randomstring");
 async function createProject(type, name, description, author) {
     switch (type) {
         case utils_1.projectTypes.api:
-            const err = await copyFiles((0, path_1.resolve)(__dirname, "../templates/api"), (0, path_1.resolve)(process.cwd(), name), name, description, author);
+            const templateDir = (0, path_1.resolve)(__dirname, "../templates/api");
+            const projectDir = (0, path_1.resolve)(process.cwd(), name);
+            const err = await scaffoldProject(templateDir, projectDir, name, description, author);
             if (!err) {
-                console.log("Copied project files!\n");
+                console.log(`Scaffolded project in '${projectDir}'!\n`);
                 console.log(`1. Move to project dir: cd '${name}'`);
                 console.log(`2. Install dependencies: yarn install`);
-                console.log(`3. Start api server on 8000 (default port): yarn dev`);
-                console.log(`4. Test api server response: curl http://localhost:8000/ping`);
+                console.log(`3. Start api server: yarn dev`);
+                console.log(`4. Test api server: curl http://localhost:8000/ping`);
             }
             else
                 console.error(err);
@@ -28,21 +30,21 @@ async function createProject(type, name, description, author) {
     }
 }
 exports.default = createProject;
-const copyFiles = async (source, destination, projectName, projectDescription, projectAuthor) => {
-    const destFiles = (0, fs_1.existsSync)(destination) ? (0, fs_1.readdirSync)(destination) : [];
+const scaffoldProject = async (templateDir, projectDir, projectName, projectDescription, projectAuthor) => {
+    const destFiles = (0, fs_1.existsSync)(projectDir) ? (0, fs_1.readdirSync)(projectDir) : [];
     if (destFiles.length > 0) {
         return `error: destination '${(0, path_1.resolve)(projectName)}' is not empty`;
     }
-    const filesGenerator = (0, utils_1.listFiles)(source, []);
+    const templateFilesGenerator = (0, utils_1.listFiles)(templateDir, []);
     const templateData = {
         appName: projectName,
         appDescription: projectDescription,
         appAuthor: projectAuthor,
         jwtSecret: (0, randomstring_1.generate)({ length: 24 })
     };
-    for await (const src of filesGenerator) {
-        const relativeSrc = (0, path_1.relative)((0, path_1.resolve)(source), src);
-        const dest = (0, path_1.resolve)((0, path_1.resolve)(destination), relativeSrc).replaceAll(".ejs", "");
+    for await (const src of templateFilesGenerator) {
+        const relativeSrc = (0, path_1.relative)((0, path_1.resolve)(templateDir), src);
+        const dest = (0, path_1.resolve)((0, path_1.resolve)(projectDir), relativeSrc).replaceAll(".ejs", "");
         const content = await (0, ejs_1.renderFile)(src, templateData);
         (0, fs_1.cpSync)(src, dest, { recursive: true });
         (0, fs_1.writeFileSync)(dest, content);
