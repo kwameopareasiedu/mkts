@@ -6,10 +6,10 @@ const path_1 = require("path");
 const ejs_1 = require("ejs");
 const randomstring_1 = require("randomstring");
 async function createProject(type, name, description, author) {
+    const projectDir = (0, path_1.resolve)(process.cwd(), name);
     switch (type) {
-        case utils_1.projectTypes.api:
+        case utils_1.projectTypes.api: {
             const templateDir = (0, path_1.resolve)(__dirname, "../templates/api");
-            const projectDir = (0, path_1.resolve)(process.cwd(), name);
             const err = await scaffoldProject(templateDir, projectDir, name, description, author);
             if (!err) {
                 console.log(`Scaffolded project in '${projectDir}'!\n`);
@@ -21,8 +21,21 @@ async function createProject(type, name, description, author) {
             else
                 console.error(err);
             return;
-        // case projectTypes.web:
-        //   return;
+        }
+        case utils_1.projectTypes.web: {
+            const templateDir = (0, path_1.resolve)(__dirname, "../templates/web");
+            const err = await scaffoldProject(templateDir, projectDir, name, description, author);
+            if (!err) {
+                console.log(`Scaffolded project in '${projectDir}'!\n`);
+                console.log(`1. Move to project dir: cd '${name}'`);
+                console.log(`2. Install dependencies: yarn install`);
+                console.log(`3. Start client server: yarn dev`);
+                console.log(`4. Open app in browser: http://127.0.0.1:8000`);
+            }
+            else
+                console.error(err);
+            return;
+        }
         // case projectTypes.lib:
         //   return;
         default:
@@ -45,9 +58,15 @@ const scaffoldProject = async (templateDir, projectDir, projectName, projectDesc
     for await (const src of templateFilesGenerator) {
         const relativeSrc = (0, path_1.relative)((0, path_1.resolve)(templateDir), src);
         const dest = (0, path_1.resolve)((0, path_1.resolve)(projectDir), relativeSrc).replaceAll(".ejs", "");
-        const content = await (0, ejs_1.renderFile)(src, templateData);
         (0, fs_1.cpSync)(src, dest, { recursive: true });
-        (0, fs_1.writeFileSync)(dest, content);
+        try {
+            const content = await (0, ejs_1.renderFile)(src, templateData);
+            (0, fs_1.writeFileSync)(dest, content);
+        }
+        catch (err) {
+            console.warn(`warning: ${err.message}'`);
+            console.warn(`warning: could not render content to '${dest}'`);
+        }
         console.log(`created '${dest}'`);
     }
     return null;

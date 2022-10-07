@@ -13,7 +13,10 @@ export async function* listFiles(dir: string, ignores: Array<string>) {
   for (const dirent of dirents) {
     const res = resolve(dir, dirent.name);
 
-    if (!ignores.includes(dirent.name)) {
+    if (
+      !ignores.includes(dirent.name) &&
+      !ignores.includes(dirent.name + "/")
+    ) {
       if (dirent.isDirectory()) {
         yield* listFiles(res, ignores);
       } else {

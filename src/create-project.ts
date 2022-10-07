@@ -10,11 +10,11 @@ export default async function createProject(
   description: string,
   author: string
 ) {
-  switch (type) {
-    case projectTypes.api:
-      const templateDir = resolve(__dirname, "../templates/api");
-      const projectDir = resolve(process.cwd(), name);
+  const projectDir = resolve(process.cwd(), name);
 
+  switch (type) {
+    case projectTypes.api: {
+      const templateDir = resolve(__dirname, "../templates/api");
       const err = await scaffoldProject(
         templateDir,
         projectDir,
@@ -32,8 +32,27 @@ export default async function createProject(
       } else console.error(err);
 
       return;
-    // case projectTypes.web:
-    //   return;
+    }
+    case projectTypes.web: {
+      const templateDir = resolve(__dirname, "../templates/web");
+      const err = await scaffoldProject(
+        templateDir,
+        projectDir,
+        name,
+        description,
+        author
+      );
+
+      if (!err) {
+        console.log(`Scaffolded project in '${projectDir}'!\n`);
+        console.log(`1. Move to project dir: cd '${name}'`);
+        console.log(`2. Install dependencies: yarn install`);
+        console.log(`3. Start client server: yarn dev`);
+        console.log(`4. Open app in browser: http://127.0.0.1:8000`);
+      } else console.error(err);
+
+      return;
+    }
     // case projectTypes.lib:
     //   return;
     default:
@@ -69,10 +88,16 @@ const scaffoldProject = async (
       ".ejs",
       ""
     );
-    const content = await renderFile(src, templateData);
 
     cpSync(src, dest, { recursive: true });
-    writeFileSync(dest, content);
+
+    try {
+      const content = await renderFile(src, templateData);
+      writeFileSync(dest, content);
+    } catch (err) {
+      console.warn(`warning: ${err.message}'`);
+      console.warn(`warning: could not render content to '${dest}'`);
+    }
 
     console.log(`created '${dest}'`);
   }
