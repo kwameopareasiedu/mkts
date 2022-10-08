@@ -5,6 +5,7 @@ const fs_1 = require("fs");
 const path_1 = require("path");
 const ejs_1 = require("ejs");
 const randomstring_1 = require("randomstring");
+const dayjs = require("dayjs");
 async function createProject(type, name, description, author) {
     const projectDir = (0, path_1.resolve)(process.cwd(), name);
     switch (type) {
@@ -36,8 +37,21 @@ async function createProject(type, name, description, author) {
                 console.error(err);
             return;
         }
-        // case projectTypes.lib:
-        //   return;
+        case utils_1.projectTypes.lib:
+            const templateDir = (0, path_1.resolve)(__dirname, "../templates/lib");
+            const err = await scaffoldProject(templateDir, projectDir, name, description, author);
+            if (!err) {
+                console.log(`Scaffolded project in '${projectDir}'!\n`);
+                console.log(`1. Move to project dir: cd '${name}'`);
+                console.log(`2. Install dependencies: yarn install`);
+                console.log(`3. Create your library. Entry point is src/index.ts: https://blog.deepgram.com/build-npm-packages/`);
+                console.log(`4. Build library: yarn build`);
+                console.log(`5. Publish library to NPM`);
+                console.log(`6. Install library into another project and use`);
+            }
+            else
+                console.error(err);
+            return;
         default:
             throw new Error(`error: invalid project type '${type}'`);
     }
@@ -53,6 +67,7 @@ const scaffoldProject = async (templateDir, projectDir, projectName, projectDesc
         appName: projectName,
         appDescription: projectDescription,
         appAuthor: projectAuthor,
+        appYear: dayjs().year(),
         jwtSecret: (0, randomstring_1.generate)({ length: 24 })
     };
     for await (const src of templateFilesGenerator) {

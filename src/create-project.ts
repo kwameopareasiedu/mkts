@@ -3,6 +3,7 @@ import { cpSync, existsSync, readdirSync, writeFileSync } from "fs";
 import { relative, resolve } from "path";
 import { renderFile } from "ejs";
 import { generate } from "randomstring";
+import * as dayjs from "dayjs";
 
 export default async function createProject(
   type: string,
@@ -53,8 +54,29 @@ export default async function createProject(
 
       return;
     }
-    // case projectTypes.lib:
-    //   return;
+    case projectTypes.lib:
+      const templateDir = resolve(__dirname, "../templates/lib");
+      const err = await scaffoldProject(
+        templateDir,
+        projectDir,
+        name,
+        description,
+        author
+      );
+
+      if (!err) {
+        console.log(`Scaffolded project in '${projectDir}'!\n`);
+        console.log(`1. Move to project dir: cd '${name}'`);
+        console.log(`2. Install dependencies: yarn install`);
+        console.log(
+          `3. Create your library. Entry point is src/index.ts: https://blog.deepgram.com/build-npm-packages/`
+        );
+        console.log(`4. Build library: yarn build`);
+        console.log(`5. Publish library to NPM`);
+        console.log(`6. Install library into another project and use`);
+      } else console.error(err);
+
+      return;
     default:
       throw new Error(`error: invalid project type '${type}'`);
   }
@@ -79,6 +101,7 @@ const scaffoldProject = async (
     appName: projectName,
     appDescription: projectDescription,
     appAuthor: projectAuthor,
+    appYear: dayjs().year(),
     jwtSecret: generate({ length: 24 })
   };
 

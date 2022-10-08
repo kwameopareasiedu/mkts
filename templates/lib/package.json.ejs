@@ -1,0 +1,29 @@
+{
+  "name": "<%= appName %>",
+  "version": "1.0.0",
+  "description": "<%= appDescription %>",
+  "author": "<%= appAuthor %>",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "rollup --config",
+    "test": "ts-mocha -p tsconfig.json src/**/*.test.ts"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^8.5.0",
+    "@types/mocha": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.39.0",
+    "@typescript-eslint/parser": "^5.39.0",
+    "chai": "^4.3.6",
+    "eslint": "^8.25.0",
+    "mocha": "^10.0.0",
+    "prettier": "2.7.1",
+    "rollup": "^2.79.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "ts-mocha": "^10.0.0",
+    "tslib": "^2.4.0",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {}
+}
