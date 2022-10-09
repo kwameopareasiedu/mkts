@@ -24,7 +24,7 @@ commander_1.program
         return console.error("error: only one of --api, --web and --lib can be used");
     }
     const type = resolveProjectType(api, web, lib);
-    const answers = await inquirer.prompt([
+    const answers = (await inquirer.prompt([
         {
             name: "description",
             type: "input",
@@ -35,7 +35,7 @@ commander_1.program
             type: "input",
             message: "Name of author"
         }
-    ]);
+    ]));
     await (0, create_project_1.default)(type, name, answers.description, answers.author);
 });
 commander_1.program

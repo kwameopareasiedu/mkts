@@ -32,7 +32,7 @@ mkts
 
     const type = resolveProjectType(api, web, lib);
 
-    const answers: unknown = await inquirer.prompt([
+    const answers = (await inquirer.prompt([
       {
         name: "description",
         type: "input",
@@ -43,7 +43,7 @@ mkts
         type: "input",
         message: "Name of author"
       }
-    ]);
+    ])) as any;
 
     await createProject(type, name, answers.description, answers.author);
   });

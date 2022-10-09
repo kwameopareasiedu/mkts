@@ -1,0 +1,8 @@
+/docs/
+/node_modules/
+/src/
+.babelrc.js
+.gitignore.js
+.prettier.json
+tsconfig.json
+yarn.lock

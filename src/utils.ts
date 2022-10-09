@@ -7,7 +7,10 @@ export const projectTypes = {
   lib: "lib"
 };
 
-export async function* listFiles(dir: string, ignores: Array<string>) {
+export async function* listFiles(
+  dir: string,
+  ignores: Array<string>
+): AsyncGenerator<any> {
   const dirents = readdirSync(dir, { withFileTypes: true });
 
   for (const dirent of dirents) {
