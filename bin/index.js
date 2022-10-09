@@ -7,7 +7,7 @@ const create_project_1 = require("./create-project");
 const utils_1 = require("./utils");
 commander_1.program
     .name("mkts")
-    .description("Create modern base web, api or library Typescript projects in seconds")
+    .description("Create modern web, api or library projects with Typescript in seconds")
     .version("3.0.0");
 commander_1.program
     .command("new")

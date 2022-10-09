@@ -7,7 +7,7 @@ import { projectTypes } from "./utils";
 mkts
   .name("mkts")
   .description(
-    "Create modern base web, api or library Typescript projects in seconds"
+    "Create modern web, api or library projects with Typescript in seconds"
   )
   .version("3.0.0");
 
