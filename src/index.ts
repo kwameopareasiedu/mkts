@@ -49,17 +49,6 @@ mkts
   });
 
 mkts
-  .command("example")
-  .description("Create an example project using the MKTS tool")
-  .argument(
-    "<name>",
-    "The name for the project. This is also the project folder name. E.g. 'Awesome Todo' will have a folder called 'awesome-todo'"
-  )
-  .action(name => {
-    console.log({ name });
-  });
-
-mkts
   .command("prepare-deploy")
   .description("Create a deploy script for the specified platform")
   .option("--ubuntu", "Create a deploy shell script for Ubuntu 18.04+")
