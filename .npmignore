@@ -1,8 +1,10 @@
+/.idea/
 /docs/
 /node_modules/
 /src/
 .babelrc.js
+.eslintrc.json
 .gitignore.js
-.prettier.json
+.prettierrc.json
 tsconfig.json
 yarn.lock
