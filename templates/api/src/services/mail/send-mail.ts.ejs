@@ -1,0 +1,39 @@
+import transporter, { HtmlTemplateData, SendMailParams } from "./config";
+import { htmlToText } from "html-to-text";
+
+const sendMail = async (
+  email: string,
+  subject: string,
+  templatePath: string,
+  extra?: SendMailParams
+) => {
+  const data = extra?.data || {};
+  const attachments = extra?.attachments || [];
+  const templateData = { ...data, baseUrl: process.env.FRONTEND_BASE_URL };
+  // Template builder should include the send function as a named export
+  // and the html builder function as the default export
+  const templateBuilder = await import(templatePath);
+  const html = (templateBuilder.default as (data: HtmlTemplateData) => string)(
+    templateData
+  );
+  const text = htmlToText(html, {
+    wordwrap: 180,
+    ignoreImage: true,
+    ignoreHref: true
+  }).trim();
+
+  if (process.env.NODE_ENV === "development") {
+    console.log(text);
+  }
+
+  return transporter.sendMail({
+    from: "<%= appName %>",
+    to: email,
+    subject,
+    attachments,
+    html,
+    text
+  });
+};
+
+export default sendMail;

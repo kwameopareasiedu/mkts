@@ -1,0 +1,19 @@
+/** Runs initialization tasks before the server starts */
+
+export const configureInit = async (): Promise<void> => {
+  await runModelInit();
+
+  console.log("Configured Init!");
+};
+
+/**
+ * Runs the init method of models. You can use this to setup model instances
+ * in the database or perhaps cache database documents/rows in memory
+ */
+const runModelInit = async (): Promise<void> => {
+  try {
+  } catch (err) {
+    console.error(__filename, err);
+    console.log(`Init Error: Ensure Model Constants: ${err.message}`);
+  }
+};

@@ -1,15 +1,15 @@
 {
-    "compilerOptions": {
-        "module": "CommonJS",
-        "target": "ES5",
-        "rootDir": "./src",
-        "outDir": "./dist/",
-        "noImplicitAny": true,
-        "moduleResolution": "node",
-        "allowSyntheticDefaultImports": true,
-        "allowJs": true,
-        "jsx": "react"
-    },
-    "include": ["src/**/*"],
-    "exclude": ["node_modules", "dist", "bin"]
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ESNext",
+    "rootDir": "./src",
+    "outDir": "./bin/",
+    "noImplicitAny": true,
+    "moduleResolution": "Node",
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "jsx": "react"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "bin"]
 }

@@ -1,0 +1,49 @@
+import validator from "validator";
+import { Express } from "express";
+
+const sanitizeNested = (value: any): any => {
+  if (Object.prototype.toString.call(value) === "[object Object]") {
+    for (const k of Object.keys(value)) value[k] = sanitizeNested(value[k]);
+  } else if (Object.prototype.toString.call(value) === "[object Array]") {
+    for (let i = 0; i < value.length; i++) value[i] = sanitizeNested(value[i]);
+  } else if (Object.prototype.toString.call(value) === "[object String]") {
+    value = validator.escape(validator.trim(value));
+    value = value.replace(/&#x27;/g, "'");
+    value = value.replace(/&#x2F;/g, "/");
+  }
+
+  return value;
+};
+
+export const configureRoutes = (app: Express): void => {
+  // Apply nested sanitization to request params, query and body
+  app.use((req, res, next) => {
+    for (const k of Object.keys(req.params)) {
+      req.params[k] = sanitizeNested(req.params[k]);
+    }
+
+    for (const k of Object.keys(req.query)) {
+      req.query[k] = sanitizeNested(req.query[k]);
+    }
+
+    for (const k of Object.keys(req.body)) {
+      req.body[k] = sanitizeNested(req.body[k]);
+    }
+
+    return next();
+  });
+
+  // TODO: Define routes here
+
+  app.get("/ping", (req, res) => {
+    return res.json({ message: "pong" });
+  });
+
+  app.use((req, res) => {
+    return res.status(404).json({
+      message: "The requested resource cannot be found"
+    });
+  });
+
+  console.log("Configured Routes!");
+};

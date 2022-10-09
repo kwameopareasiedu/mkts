@@ -1,0 +1,29 @@
+import { createTransport } from "nodemailer";
+import SMTPTransport from "nodemailer/lib/smtp-transport";
+import { Attachment } from "nodemailer/lib/mailer";
+
+const config: SMTPTransport.Options = {
+  service: process.env.NODEMAILER_SERVICE,
+  auth: {
+    user: process.env.NODEMAILER_USER,
+    pass: process.env.NODEMAILER_PASS
+  }
+};
+
+if (process.env.NODE_ENV === "development") {
+  config.tls = { rejectUnauthorized: false };
+}
+
+const transporter = createTransport(config);
+
+export default transporter;
+
+export interface HtmlTemplateData {
+  baseUrl: string;
+  [k: string]: any;
+}
+
+export interface SendMailParams {
+  attachments?: Array<Attachment>;
+  data?: any;
+}

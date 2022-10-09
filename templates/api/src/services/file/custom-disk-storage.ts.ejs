@@ -1,0 +1,68 @@
+import { DiskStorageOptions, StorageEngine } from "multer";
+import { Request } from "express";
+import * as path from "path";
+import * as fs from "fs";
+import { CustomFileUpload } from "../../utils";
+
+/**
+ * A custom Multer disk storage which adds a key and location to req.file.
+ * This provides a standard req.file object for a disk upload or remove
+ * multer-s3 upload
+ */
+export class CustomDiskStorage implements StorageEngine {
+  readonly options: DiskStorageOptions;
+
+  constructor(options: DiskStorageOptions) {
+    this.options = options;
+  }
+
+  _handleFile(
+    req: Request,
+    file: Express.Multer.File,
+    cb: (error?: any, info?: Partial<CustomFileUpload>) => void
+  ): void {
+    const getDest = this.options.destination as (
+      req: Request,
+      file: Express.Multer.File,
+      callback: (error: Error | null, destination: string) => void
+    ) => void;
+
+    getDest(req, file, (destinationError, destination) => {
+      if (destinationError) return cb(destinationError, null);
+
+      this.options.filename(req, file, (filenameError, filename) => {
+        if (filenameError) return cb(filenameError, null);
+
+        const finalPath = path.join(destination, filename);
+        const outStream = fs.createWriteStream(finalPath);
+        const url =
+          process.env.BASE_URL + "/" + path.relative(process.cwd(), finalPath);
+
+        file.stream.pipe(outStream);
+        outStream.on("error", cb);
+        outStream.on("finish", function () {
+          cb(null, {
+            key: finalPath,
+            location: url,
+            destination,
+            filename,
+            path: finalPath,
+            size: outStream.bytesWritten
+          });
+        });
+      });
+    });
+  }
+
+  _removeFile(
+    req: Request,
+    file: Express.Multer.File,
+    cb: (error: Error | null) => void
+  ) {
+    fs.unlink(file.path, cb);
+
+    delete file.destination;
+    delete file.filename;
+    delete file.path;
+  }
+}

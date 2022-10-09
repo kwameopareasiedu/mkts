@@ -1,0 +1,201 @@
+import React from "react";
+import ViteLogo from "../assets/vite.svg";
+import ReactLogo from "../assets/react.svg";
+import ESlintLogo from "../assets/eslint.svg";
+import PrettierLogo from "../assets/prettier.svg";
+import ReactRouterDomLogo from "../assets/react-router-dom.svg";
+import StyledComponentsLogo from "../assets/styled-components.svg";
+import ZustandLogo from "../assets/zustand.png";
+import styled, { StyledComponent } from "styled-components";
+import { selectCount, useCountStore } from "../store";
+
+const HomepageRoot = styled.div`
+  display: grid;
+  text-align: center;
+  place-items: center;
+
+  .w-100 {
+    width: 100%;
+  }
+
+  h3 {
+    font-weight: 100;
+  }
+
+  a {
+    text-decoration: none;
+    line-height: 1;
+  }
+
+  .read-the-docs {
+    color: #888;
+  }
+`;
+
+const StyledLink = styled.a.attrs({
+  target: "_blank",
+  rel: "noreferrer noopener"
+})`
+  border: none;
+  padding: 4px 8px;
+  border-radius: 20px;
+  background-color: #efefef;
+
+  div,
+  span {
+    vertical-align: middle;
+  }
+
+  span:first-child {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 64px;
+      object-fit: contain;
+    }
+  }
+
+  span {
+    font-size: 0.85rem;
+    color: #454545;
+  }
+`;
+
+export default function Homepage() {
+  const [count, increment, reset] = useCountStore(selectCount);
+
+  return (
+    <HomepageRoot>
+      <div className="w-100">
+        <h3>
+          &quot;{"<%= appName %>"}&quot; was created with the{" "}
+          <a
+            href="https://github.com/kwameopareasiedu/mkts"
+            rel="noreferrer noopener"
+            target="_blank">
+            <code>mkts</code>
+          </a>{" "}
+          tool
+        </h3>
+
+        <br />
+
+        <p>
+          <span>Tooling:</span>
+          <span>&nbsp;&nbsp;&nbsp;</span>
+          <StyledLink href="https://vitejs.dev">
+            <span>
+              <img src={ViteLogo} alt="Vite" />
+            </span>
+            <span>Vite</span>
+          </StyledLink>
+        </p>
+
+        <p>
+          <span>UI:</span>
+
+          <span>&nbsp;&nbsp;&nbsp;</span>
+
+          <StyledLink href="https://reactjs.org/">
+            <span>
+              <img src={ReactLogo} alt="React" />
+            </span>
+            <span>React</span>
+          </StyledLink>
+
+          <span>&nbsp;</span>
+
+          <StyledLink href="https://reactjs.org/docs/react-dom.html">
+            <span>
+              <img src={ReactLogo} alt="React DOM" />
+            </span>
+            <span>React DOM</span>
+          </StyledLink>
+
+          <span>&nbsp;</span>
+
+          <StyledLink href="https://styled-components.com/">
+            <span>
+              <img src={StyledComponentsLogo} alt="Styled Components" />
+            </span>
+            <span>Styled Components</span>
+          </StyledLink>
+        </p>
+
+        <p>
+          <span>Linting:</span>
+
+          <span>&nbsp;&nbsp;&nbsp;</span>
+
+          <StyledLink href="https://eslint.org/">
+            <span>
+              <img src={ESlintLogo} alt="ESlint" />
+            </span>
+            <span>ESlint</span>
+          </StyledLink>
+
+          <span>&nbsp;</span>
+
+          <StyledLink href="https://prettier.io/">
+            <span>
+              <img src={PrettierLogo} alt="Prettier" />
+            </span>
+            <span>Prettier</span>
+          </StyledLink>
+        </p>
+
+        <p>
+          <span>Routing:</span>
+
+          <span>&nbsp;&nbsp;&nbsp;</span>
+
+          <StyledLink href="https://reactrouter.com/en/main/start/overview">
+            <span>
+              <img src={ReactRouterDomLogo} alt="React Router Dom" />
+            </span>
+            <span>React Router Dom</span>
+          </StyledLink>
+        </p>
+
+        <p>
+          <span>State Management:</span>
+
+          <span>&nbsp;&nbsp;&nbsp;</span>
+
+          <StyledLink href="https://github.com/pmndrs/zustand#readme">
+            <span>
+              <img src={ZustandLogo} alt="Zustand" />
+            </span>
+            <span>Zustand</span>
+          </StyledLink>
+        </p>
+
+        <p className="read-the-docs">
+          <i>Click on the logos to learn more</i>
+        </p>
+
+        <br />
+
+        <p>
+          Edit <code>src/pages/homepage.tsx</code> and save to test HMR
+        </p>
+
+        <div className="card">
+          <span>
+            Count is <strong>{count}</strong>
+          </span>
+          <span>&nbsp;&nbsp;&nbsp;</span>
+          <button onClick={increment}>Increment +</button>
+          <span>&nbsp;</span>
+          <button onClick={reset}>Reset</button>
+        </div>
+      </div>
+    </HomepageRoot>
+  );
+}
