@@ -48,13 +48,13 @@ mkts
     await createProject(type, name, answers.description, answers.author);
   });
 
-mkts
-  .command("prepare-deploy")
-  .description("Create a deploy script for the specified platform")
-  .option("--ubuntu", "Create a deploy shell script for Ubuntu 18.04+")
-  .action(({ ubuntu }) => {
-    console.log({ ubuntu });
-  });
+// mkts
+//   .command("prepare-deploy")
+//   .description("Create a deploy script for the specified platform")
+//   .option("--ubuntu", "Create a deploy shell script for Ubuntu 18.04+")
+//   .action(({ ubuntu }) => {
+//     console.log({ ubuntu });
+//   });
 
 const resolveProjectType = (isApi: boolean, isWeb: boolean, isLib: boolean) => {
   if (isApi) return projectTypes.api;
