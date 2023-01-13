@@ -1,5 +1,5 @@
 import transporter, { HtmlTemplateData, SendMailParams } from "./config";
-import { htmlToText } from "html-to-text";
+import { convert } from "html-to-text";
 
 const sendMail = async (
   email: string,
@@ -16,10 +16,12 @@ const sendMail = async (
   const html = (templateBuilder.default as (data: HtmlTemplateData) => string)(
     templateData
   );
-  const text = htmlToText(html, {
+  const text = convert(html, {
     wordwrap: 180,
-    ignoreImage: true,
-    ignoreHref: true
+    selectors: [
+      { selector: "a", options: { ignoreHref: true } },
+      { selector: "img", format: "skip" }
+    ]
   }).trim();
 
   if (process.env.NODE_ENV === "development") {
