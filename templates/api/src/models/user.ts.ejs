@@ -1,6 +1,6 @@
-import { RootModel } from "./root";
+import RootModel from "./root";
 
-export class User extends RootModel {
+export default class User extends RootModel {
   static readonly COLLECTION_NAME = "users";
 
   readonly name: string;

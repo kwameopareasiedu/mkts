@@ -1,0 +1,18 @@
+# Updates the <%= appName %> repo, runs the build command and restarts the service
+git checkout master
+git -c core.sshCommand="ssh -i <path/to/ssh/file>" pull origin master
+
+export NODE_ENV=development
+rm -rf node_modules
+yarn install
+yarn build
+
+export NODE_ENV=production
+rm -rf node_modules
+yarn install
+
+# Update the service configuration
+source ./systemd.sh
+
+systemctl restart <%= appName %>.service
+journalctl -u <%= appName %>.service --follow -n 32

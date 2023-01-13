@@ -18,11 +18,6 @@ const helmet = require("helmet");
   const debug = _debug("<%= appName %>");
   const isDev = process.env.NODE_ENV === "development";
 
-  // =====================VIEW ENGINE SETUP===========================
-  app.set("views", path.join(process.cwd(), "client-dist"));
-  app.set("view engine", "ejs");
-  // =================================================================
-
   // =====================SETUP MIDDLEWARES===========================
   if (!isDev) app.set("trust proxy", 1);
 

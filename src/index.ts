@@ -21,16 +21,16 @@ mkts
   .option("--api", "Create an backend API project in NodeJS")
   .option("--web", "Create a frontend web project using React + Vite")
   .option("--lib", "Create a library project")
-  .action(async (name, { api, web, lib }) => {
-    if (!api && !web && !lib) {
+  .action(async (name, { api, lib }) => {
+    if (!api && !lib) {
       return console.error("error: missing project type ");
-    } else if (+!!api + +!!web + +!!lib > 1) {
+    } else if (+!!api + +!!lib > 1) {
       return console.error(
         "error: only one of --api, --web and --lib can be used"
       );
     }
 
-    const type = resolveProjectType(api, web, lib);
+    const type = resolveProjectType(api, lib);
 
     const answers = (await inquirer.prompt([
       {
@@ -56,9 +56,8 @@ mkts
 //     console.log({ ubuntu });
 //   });
 
-const resolveProjectType = (isApi: boolean, isWeb: boolean, isLib: boolean) => {
+const resolveProjectType = (isApi: boolean, isLib: boolean) => {
   if (isApi) return projectTypes.api;
-  if (isWeb) return projectTypes.web;
   if (isLib) return projectTypes.lib;
   throw new Error("Invalid project type");
 };

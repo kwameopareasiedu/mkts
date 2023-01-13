@@ -1,0 +1,3 @@
+# Restarts the <%= appName %>.service
+systemctl restart <%= appName %>.service
+journalctl -u <%= appName %>.service --follow -n 64

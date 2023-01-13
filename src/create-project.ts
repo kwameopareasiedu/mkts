@@ -34,26 +34,6 @@ export default async function createProject(
 
       return;
     }
-    case projectTypes.web: {
-      const templateDir = resolve(__dirname, "../templates/web");
-      const err = await scaffoldProject(
-        templateDir,
-        projectDir,
-        name,
-        description,
-        author
-      );
-
-      if (!err) {
-        console.log(`Scaffolded project in '${projectDir}'!\n`);
-        console.log(`1. Move to project dir: cd '${name}'`);
-        console.log(`2. Install dependencies: yarn install`);
-        console.log(`3. Start client server: yarn dev`);
-        console.log(`4. Open app in browser: http://127.0.0.1:8000`);
-      } else console.error(err);
-
-      return;
-    }
     case projectTypes.lib:
       const templateDir = resolve(__dirname, "../templates/lib");
       const err = await scaffoldProject(

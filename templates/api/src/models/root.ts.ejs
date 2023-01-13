@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 
-export abstract class RootModel {
-  readonly _id: ObjectId;
+export default abstract class RootModel {
+  readonly _id?: ObjectId;
 
   constructor(_id: ObjectId) {
     this._id = _id;

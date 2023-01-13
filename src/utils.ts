@@ -3,7 +3,6 @@ import { resolve } from "path";
 
 export const projectTypes = {
   api: "api",
-  web: "web",
   lib: "lib"
 };
 

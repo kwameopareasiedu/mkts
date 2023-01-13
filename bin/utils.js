@@ -5,7 +5,6 @@ const fs_1 = require("fs");
 const path_1 = require("path");
 exports.projectTypes = {
     api: "api",
-    web: "web",
     lib: "lib"
 };
 async function* listFiles(dir, ignores) {

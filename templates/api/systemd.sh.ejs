@@ -1,0 +1,18 @@
+# Creates a service in /etc/systemd/system/ for the app
+echo "
+[Unit]
+Description=<%= appName %> server process
+After=network.target
+Wants=network-online.target
+
+[Service]
+Restart=always
+Type=simple
+ExecStart=$(which node) -r dotenv/config dist/app.js
+WorkingDirectory=/path/to/working/dir
+Environment=
+
+[Install]
+WantedBy=multi-user.target" > /etc/systemd/system/<%= appName %>.service
+
+systemctl daemon-reload

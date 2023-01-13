@@ -16,14 +16,14 @@ commander_1.program
     .option("--api", "Create an backend API project in NodeJS")
     .option("--web", "Create a frontend web project using React + Vite")
     .option("--lib", "Create a library project")
-    .action(async (name, { api, web, lib }) => {
-    if (!api && !web && !lib) {
+    .action(async (name, { api, lib }) => {
+    if (!api && !lib) {
         return console.error("error: missing project type ");
     }
-    else if (+!!api + +!!web + +!!lib > 1) {
+    else if (+!!api + +!!lib > 1) {
         return console.error("error: only one of --api, --web and --lib can be used");
     }
-    const type = resolveProjectType(api, web, lib);
+    const type = resolveProjectType(api, lib);
     const answers = (await inquirer.prompt([
         {
             name: "description",
@@ -45,11 +45,9 @@ commander_1.program
 //   .action(({ ubuntu }) => {
 //     console.log({ ubuntu });
 //   });
-const resolveProjectType = (isApi, isWeb, isLib) => {
+const resolveProjectType = (isApi, isLib) => {
     if (isApi)
         return utils_1.projectTypes.api;
-    if (isWeb)
-        return utils_1.projectTypes.web;
     if (isLib)
         return utils_1.projectTypes.lib;
     throw new Error("Invalid project type");
